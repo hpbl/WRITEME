@@ -21,5 +21,6 @@ RUN python3 -c "import nltk; nltk.download('words')"
 # copy code itself from context to image
 COPY . .
 
-# run from working directory, and separate args in the json syntax	
-ENTRYPOINT sh
+# start the flask webserver
+ENTRYPOINT ["python"]
+CMD ["API/app.py"]

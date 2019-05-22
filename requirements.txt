@@ -7,3 +7,4 @@ bs4
 nltk
 html2text
 lxml
+flask
