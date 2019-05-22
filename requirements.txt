@@ -8,3 +8,4 @@ nltk
 html2text
 lxml
 flask
+requests
