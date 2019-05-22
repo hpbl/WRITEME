@@ -1,0 +1,9 @@
+numpy
+pandas
+scipy
+scikit-learn
+markdown2
+bs4
+nltk
+html2text
+lxml

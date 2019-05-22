@@ -1,0 +1,9 @@
+file_id,section_id,local_readme_file,heading_markdown,section_code
+1,1,hpbl.haskellKoans.md,# HaskellKoans,"1,6"
+1,2,hpbl.haskellKoans.md,## The project,1
+1,3,hpbl.haskellKoans.md,## To Do,
+1,4,hpbl.haskellKoans.md,## Setup,3
+1,5,hpbl.haskellKoans.md,### Running locally,3
+1,6,hpbl.haskellKoans.md,### Running on Docker,3
+1,7,hpbl.haskellKoans.md,## Continuous Deployment,"3,6"
+1,8,hpbl.haskellKoans.md,## Original Authors,5

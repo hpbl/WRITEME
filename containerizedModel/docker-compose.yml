@@ -1,0 +1,9 @@
+version: '3'
+services:
+    classifier-backend:
+        build: .
+        # ports:
+        #     - '8888:8888'
+        volumes:
+            - '$PWD:/app'
+        # command: pip install -r requirements.txt
