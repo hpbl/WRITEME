@@ -1,14 +1,13 @@
 from flask import Flask, jsonify
-from lib.Provider import fetch_repositories
-from lib.MockProvider import fetch_repositories as mock_fetch_repositories
-
+from provider import get_provider
+from config import DEBUG
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello():
-    return 'Hello!'
+    return jsonify(DEBUG)
 
 
 @app.route('/<language>')
@@ -17,10 +16,11 @@ def get_language_repos(language):
     sort = "stars"
     number_repos = 100
 
-    formatted_json = mock_fetch_repositories(language_query, sort, number_repos)
+    provider = get_provider(DEBUG);
+    formatted_json = provider.fetch_repositories(language_query, sort, number_repos)
 
     return jsonify(formatted_json)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", debug=DEBUG)
