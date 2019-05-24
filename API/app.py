@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return jsonify(DEBUG)
+    return jsonify(f'debug mode: {DEBUG}')
 
 
 @app.route('/<language>')
@@ -16,10 +16,12 @@ def get_language_repos(language):
     sort = "stars"
     number_repos = 100
 
-    provider = get_provider(DEBUG);
+    provider = get_provider(DEBUG)
     formatted_json = provider.fetch_repositories(language_query, sort, number_repos)
 
-    return jsonify(formatted_json)
+    readme_urls = [provider.fetch_readme_url(repo['full_name']) for repo in formatted_json['repos']]
+
+    return jsonify(readme_urls)
 
 
 if __name__ == "__main__":
