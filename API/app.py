@@ -9,10 +9,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    download_url = 'https://raw.githubusercontent.com/PerfectlySoft/Perfect/master/README.md'
-    repo_full_name = 'PerfectlySoft/Perfect'
-    get_provider(DEBUG).download_readme(download_url, repo_full_name)
-    return jsonify(f'debug mode: {DEBUG}')
+    style = 'color:cyan;background-color:pink'
+    return f'<h1 style={style}>README Assist Tool</h1>'
 
 
 @app.route('/<language>')
