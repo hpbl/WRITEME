@@ -1,6 +1,14 @@
 # README-Assist-Tool
 > Helping developers write README with data-driven insights.
 
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+<a href="http://flask.pocoo.org/"><img
+   src="http://flask.pocoo.org/static/badges/made-with-flask-s.png"
+   border="0"
+   alt="made with Flask"
+   title="made with Flask">
+</a>
+
 This project started as my graduation project. It was built with open-source in mind, so feel free to contribute, all help is welcome.
 
 The tool consists of a web interface where developers can obtain recommendations of sections, based on research and the most popular open-source repositories, for the READMEs they are writing.
