@@ -21,3 +21,8 @@ class AbstractDataProvider(metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def fetch_readme_url(self, repo_full_name):
         raise NotImplementedError()
+
+
+    @abc.abstractmethod
+    def download_readme(self, download_url):
+        raise NotImplementedError()

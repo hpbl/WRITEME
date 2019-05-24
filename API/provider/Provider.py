@@ -2,6 +2,7 @@ import math
 import requests as rq
 from functools import reduce
 from provider.AbstractDataProvider import AbstractDataProvider
+import os
 
 
 class Provider(AbstractDataProvider):
@@ -34,6 +35,19 @@ class Provider(AbstractDataProvider):
         readme_url = response_json['download_url']
 
         return readme_url
+
+    def download_readme(self, download_url, repo_full_name):
+        response = rq.get(download_url)
+
+        file_name = repo_full_name.replace('/', '.')
+        folder_path = f'{os.getcwd()}/containerizedModel/input/targetREADMEs'
+
+        if not os.path.exists(folder_path):
+            os.mkdir(folder_path)
+
+        file = open(f'{folder_path}/{file_name}.md', "wb")
+        file.write(response.content)
+        file.close()
 
     # Auxiliar Methods
     def pages_count(self, num_results):
