@@ -19,7 +19,21 @@ class Provider(AbstractDataProvider):
         return self.json_responses(repositories, queries)
 
     def fetch_readme_url(self, repo_full_name):
-        return
+        base_url = 'https://api.github.com/repos'
+        token = 'b5d003b1b520254348e27c74552f4367b7afb0cd'
+        request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
+
+        try:
+            response = rq.get(request_url)
+        except rq.exceptions.RequestException as e:
+            # TODO: Handle error
+            print("ERROR HERE:")
+            print(e, file=sys.stderr)
+
+        response_json = response.json()
+        readme_url = response_json['download_url']
+
+        return readme_url
 
     # Auxiliar Methods
     def pages_count(self, num_results):
