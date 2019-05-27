@@ -28,7 +28,7 @@ class Provider(AbstractDataProvider):
             response = rq.get(request_url)
         except rq.exceptions.RequestException as e:
             # TODO: Handle error
-            print("ERROR HERE:")
+            print("ERROR HERE:", file=sys.stderr)
             print(e, file=sys.stderr)
 
         response_json = response.json()

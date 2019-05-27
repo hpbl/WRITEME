@@ -34,7 +34,7 @@ def get_language_repos(language):
         print(f'saved file: {current_index}', file=sys.stderr)
         current_index += 1
 
-    return jsonify(f'saved {current_index} {language} READMEs')
+    return jsonify(f'saved {current_index - 1} {language} READMEs')
 
 
 if __name__ == "__main__":
