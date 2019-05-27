@@ -1,5 +1,5 @@
 import json
-from provider.AbstractDataProvider import AbstractDataProvider
+from API.provider.AbstractDataProvider import AbstractDataProvider
 
 
 class MockProvider(AbstractDataProvider):

@@ -1,8 +1,9 @@
 import math
 import requests as rq
 from functools import reduce
-from provider.AbstractDataProvider import AbstractDataProvider
+from API.provider.AbstractDataProvider import AbstractDataProvider
 import os
+import sys
 
 
 class Provider(AbstractDataProvider):

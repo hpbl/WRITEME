@@ -1,14 +1,17 @@
 from flask import Flask, jsonify
-from provider import get_provider
-from config import DEBUG
+from API.provider import get_provider
+from API.config import DEBUG
+from containerizedModel.testando import testando_func
 import os
 import sys
+
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def hello():
+    testando_func()
     style = 'color:cyan;background-color:pink'
     return f'<h1 style={style}>README Assist Tool</h1>'
 
