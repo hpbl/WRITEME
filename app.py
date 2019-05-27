@@ -1,8 +1,8 @@
 from flask import Flask, jsonify
 from API.provider import get_provider
 from API.config import DEBUG
-from containerizedModel.testando import testando_func
-import os
+from containerizedModel.script.classifier.load_target_sections import load_sections
+from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 import sys
 
 
@@ -11,7 +11,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    testando_func()
+    # load_sections()
+    classify_sections()
     style = 'color:cyan;background-color:pink'
     return f'<h1 style={style}>README Assist Tool</h1>'
 

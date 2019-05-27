@@ -1,26 +1,24 @@
-import sys
-sys.path.append('../')
-
 import configparser
 import logging
 import sqlite3
 from sqlite3 import Error
-from helper.helper2 import *
+from containerizedModel.script.helper.helper2 import *
 import sys
 import os
 import shutil
 import pandas
-from helper.extractor import *
-    
-if __name__ == '__main__':
+from containerizedModel.script.helper.extractor import *
+
+
+def load_sections():
     config = configparser.ConfigParser()
-    config.read('../../config.cfg')
+    config.read('containerizedModel/config.cfg')
 
     db_filename = config['DEFAULT']['db_filename']
     readme_file_dir = config['DEFAULT']['target_readme_file_dir']
     temp_abstracted_markdown_file_dir = config['DEFAULT']['temp_target_abstracted_markdown_file_dir']
     
-    log_filename = '../../log/load_target_sections.log'
+    log_filename = 'containerizedModel/log/load_target_sections.log'
     os.makedirs(os.path.dirname(log_filename), exist_ok=True)
     logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
     logging.getLogger().addHandler(logging.StreamHandler())
@@ -33,3 +31,7 @@ if __name__ == '__main__':
     abstract_out_markdown(filenames, readme_file_dir, temp_abstracted_markdown_file_dir)
     extract_section_from_abstracted_files_v2(temp_abstracted_markdown_file_dir, db_filename, 'target_section_overview','target_section_content')
     logging.info("Operation completed")
+
+
+if __name__ == '__main__':
+    load_sections()
