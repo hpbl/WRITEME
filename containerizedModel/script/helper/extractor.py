@@ -1,5 +1,5 @@
 import logging
-from containerizedModel.script.helper.helper2 import *
+from script.helper.helper2 import *
 import sqlite3
 from sqlite3 import Error
 import sys
@@ -359,7 +359,7 @@ def load_section_overview_from_csv(input_filename_csv, db_filename, target_overv
         conn.close()
         
 def delete_existing_section_content_data(temp_abstracted_markdown_file_dir, db_filename, section_content_table_name):
-    if (not temp_abstracted_markdown_file_dir.startswith('containerizedModel/temp')):
+    if (not temp_abstracted_markdown_file_dir.startswith('../../temp')):
         logging.info('Please ensure that temp_abstracted_markdown_file_dir config variable is set correctly')
         sys.exit()
     else:

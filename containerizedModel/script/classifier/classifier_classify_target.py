@@ -1,24 +1,37 @@
+import sys
+sys.path.append('../..')
+
 import configparser
 import logging
+import pandas
+from pandas import DataFrame
+import numpy as np
 import sqlite3
 from sqlite3 import Error
-from containerizedModel.script.helper.heuristic2 import *
-from containerizedModel.script.helper.balancer import *
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.svm import LinearSVC
+from sklearn.preprocessing import MultiLabelBinarizer
+from sklearn.model_selection import cross_val_predict
+from sklearn.metrics import classification_report
+from sklearn.model_selection import cross_val_score
+from script.helper.heuristic2 import *
+from script.helper.balancer import *
 import time
+import operator
 from sklearn.externals import joblib
-
+# from win32com.test.testall import output_checked_programs
 
 def find_unique(csv_input_line):
     l = list(set(csv_input_line.split(',')))
     l.sort()
     return l
 
-
-def classify_sections():
+def main():
     start = time.time()
     
     config = configparser.ConfigParser()
-    config.read('containerizedModel/config.cfg')
+    # config.read('../../config/config.cfg')
+    config.read('config/config.cfg')
     db_filename = config['DEFAULT']['db_filename']
     rng_seed = int(config['DEFAULT']['rng_seed'])
     vectorizer = joblib.load(config['DEFAULT']['vectorizer_filename']) 
@@ -27,7 +40,7 @@ def classify_sections():
     output_section_code_filename = config['DEFAULT']['output_section_code_filename']
     output_file_codes_filename = config['DEFAULT']['output_file_codes_filename']
     
-    log_filename = 'containerizedModel/log/classifier_classify_target.log'
+    log_filename = 'log/classifier_classify_target.log'    
     logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
     logging.getLogger().addHandler(logging.StreamHandler())
     
@@ -94,7 +107,3 @@ def classify_sections():
         logging.exception(e)
     finally:
         conn.close()
-
-
-if __name__ == '__main__':
-    classify_sections()
