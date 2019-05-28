@@ -1,6 +1,3 @@
-import sys
-sys.path.append('../..')
-
 import configparser
 import logging
 import pandas
@@ -31,7 +28,7 @@ def main():
     
     config = configparser.ConfigParser()
     # config.read('../../config/config.cfg')
-    config.read('config/config.cfg')
+    config.read('containerizedModel/config/config.cfg')
     db_filename = config['DEFAULT']['db_filename']
     rng_seed = int(config['DEFAULT']['rng_seed'])
     vectorizer = joblib.load(config['DEFAULT']['vectorizer_filename']) 
@@ -40,7 +37,7 @@ def main():
     output_section_code_filename = config['DEFAULT']['output_section_code_filename']
     output_file_codes_filename = config['DEFAULT']['output_file_codes_filename']
     
-    log_filename = 'log/classifier_classify_target.log'    
+    log_filename = 'containerizedModel/log/classifier_classify_target.log'    
     logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
     logging.getLogger().addHandler(logging.StreamHandler())
     
