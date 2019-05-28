@@ -11,19 +11,19 @@ from sklearn.preprocessing import MultiLabelBinarizer
 from sklearn.model_selection import cross_val_predict
 from sklearn.metrics import classification_report
 from sklearn.model_selection import cross_val_score
-from script.helper.heuristic2 import *
-from script.helper.balancer import *
+from containerizedModel.script.helper.heuristic2 import *
+from containerizedModel.script.helper.balancer import *
 import time
 import operator
 from sklearn.externals import joblib
-# from win32com.test.testall import output_checked_programs
+import sys
 
 def find_unique(csv_input_line):
     l = list(set(csv_input_line.split(',')))
     l.sort()
     return l
 
-def main():
+def classify_sections():
     start = time.time()
     
     config = configparser.ConfigParser()
@@ -98,9 +98,16 @@ def main():
         end = time.time()
         runtime_in_seconds = end - start
         logging.info('Processing completed in {0}'.format(runtime_in_seconds))
+        print('Processing completed in {0}'.format(runtime_in_seconds), file=sys.stderr)
     except Error as e:
         logging.exception(e)
+        print(e, file=sys.stderr)
     except Exception as e:
         logging.exception(e)
+        print(e, file=sys.stderr)
     finally:
         conn.close()
+
+
+if __name__ == '__main__':
+    classify_sections()
