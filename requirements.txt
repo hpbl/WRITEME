@@ -9,3 +9,4 @@ html2text
 lxml
 flask
 requests
+joblib

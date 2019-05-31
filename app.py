@@ -2,6 +2,7 @@ from flask import Flask, jsonify
 from API.provider import get_provider
 from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
+from containerizedModel.script.loading.load_target_sections import load_sections
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -13,9 +14,20 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    classify_sections()
     style = 'color:cyan;background-color:pink'
     return f'<h1 style={style}>README Assist Tool</h1>'
+
+
+@app.route('/load')
+def load():
+    load_sections()
+    return 'loaded sections'
+
+
+@app.route('/classify')
+def classify():
+    classify_sections()
+    return "classified readmes"
 
 
 @app.route('/<language>')

@@ -27,7 +27,6 @@ def classify_sections():
     start = time.time()
     
     config = configparser.ConfigParser()
-    # config.read('../../config/config.cfg')
     config.read('containerizedModel/config/config.cfg')
     db_filename = config['DEFAULT']['db_filename']
     rng_seed = int(config['DEFAULT']['rng_seed'])
