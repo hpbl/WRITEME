@@ -1,5 +1,5 @@
 import unittest
-from API.parser.SectionTitlesParser import *
+from API.parser.SectionParser import *
 
 
 class TestSectionTitleParser(unittest.TestCase):
