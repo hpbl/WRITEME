@@ -1,5 +1,5 @@
 from flask import Flask, jsonify
-from API.provider import get_provider
+from API.dataProvider import get_provider
 from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
