@@ -5,7 +5,7 @@ from API.sectionAnalyzer.SectionAnalyzer import group_sections_by_level
 from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
-from API.parser.Section import MyJSONEncoder
+from API.model.MyJSONEncoder import MyJSONEncoder
 
 # retrieving model file (joblib.load) requires this to work
 import sys

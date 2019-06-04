@@ -1,5 +1,5 @@
 from typing import Dict, List
-from API.parser.Section import Section
+from API.model.Section import Section
 
 
 def group_sections_by_level(sections: List[Section]) -> Dict[int, List[Section]]:

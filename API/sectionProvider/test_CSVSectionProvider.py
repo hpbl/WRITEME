@@ -1,7 +1,7 @@
 import unittest
 import csv
 import os
-from API.parser.Section import Section
+from API.model.Section import Section
 from API.sectionProvider.CSVSectionProvider import CSVSectionProvider
 
 

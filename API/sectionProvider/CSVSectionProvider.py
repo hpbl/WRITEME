@@ -1,5 +1,5 @@
 from typing import Optional, List
-from API.parser.Section import Section
+from API.model.Section import Section
 from API.parser.FileLoader import load_csv_file
 from API.parser.SectionParser import parse_classified_sections
 from API.sectionProvider.AbstractSectionProvider import AbstractSectionProvider

@@ -1,7 +1,7 @@
 import unittest
 import collections
 
-from API.parser.Section import Section
+from API.model.Section import Section
 from API.parser.SectionParser import parse_classified_sections, parse_section_codes
 
 

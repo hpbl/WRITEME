@@ -1,7 +1,7 @@
 import unittest
 
 from API.sectionAnalyzer.SectionAnalyzer import group_sections_by_level
-from API.parser.Section import Section
+from API.model.Section import Section
 
 class SectionAnalyzerTestCase(unittest.TestCase):
     """Section Analyzer Test Case"""

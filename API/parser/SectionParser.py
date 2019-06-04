@@ -1,7 +1,6 @@
-import sys
 import re
 from typing import List
-from API.parser.Section import Section
+from API.model.Section import Section
 
 
 def parse_classified_sections(classified_sections_ordered_dicts):

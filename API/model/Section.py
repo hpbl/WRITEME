@@ -1,5 +1,3 @@
-from flask.json import JSONEncoder
-
 class Section():
     def __init__(self, file_id, section_id, readme_file_name, heading_level, title, section_codes):
         self.file_id = file_id
@@ -21,21 +19,3 @@ class Section():
             'title': self.title,
             'section_codes': self.section_codes,
         }
-
-    @classmethod
-    def from_json(cls, json):
-        return Section(json['file_id'])
-
-
-class MyJSONEncoder(JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, Section):
-            return {
-                'file_id': obj.file_id,
-                'section_id': obj.section_id,
-                'readme_file_name': obj.readme_file_name,
-                'heading_level': obj.heading_level,
-                'title': obj.title,
-                'section_codes': obj.section_codes,
-            }
-        return super(MyJSONEncoder, self).default(obj)
