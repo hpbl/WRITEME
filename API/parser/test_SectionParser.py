@@ -2,7 +2,7 @@ import unittest
 import collections
 
 from API.parser.Section import Section
-from API.parser.SectionParser import parse_classified_sections
+from API.parser.SectionParser import parse_classified_sections, parse_section_codes
 
 
 class SectionParserTestCase(unittest.TestCase):
@@ -51,3 +51,42 @@ class SectionParserTestCase(unittest.TestCase):
         self.assertEqual(given[1], self.second_section)
         self.assertEqual(given, [self.first_section, self.second_section])
 
+    def test_parse_section_codes_single_number(self):
+        """
+            Given a string of sections with only one number
+            When the string is parsed
+            Then we should have a list of ints with the number
+        """
+        given = "1"
+        when = parse_section_codes(given)
+        self.assertEqual(when, [int(1)])
+
+    def test_parse_section_codes_multiple_numbers(self):
+        """
+            Given a string of sections with multiple numbers
+            When the string is parsed
+            Then we should have a list of ints with the numbers
+        """
+        given = "1,2,3"
+        when = parse_section_codes(given)
+        self.assertEqual(when, [int(1), int(2), int(3)])
+
+    def test_parse_section_codes_no_number(self):
+        """
+            Given a string of sections with no number
+            When the string is parsed
+            Then we should have a list of ints with the number 999
+        """
+        given = "-"
+        when = parse_section_codes(given)
+        self.assertEqual(when, [int(999)])
+
+    def test_parse_section_codes_no_code(self):
+        """
+            Given a string of sections with no code
+            When the string is parsed
+            Then we should have a list of ints with the number 998
+        """
+        given = ""
+        when = parse_section_codes(given)
+        self.assertEqual(when, [int(998)])

@@ -1,5 +1,6 @@
-import csv
+import sys
 import re
+from typing import List
 from API.parser.Section import Section
 
 
@@ -15,12 +16,7 @@ def parse_classified_sections(classified_sections_ordered_dicts):
 
         heading_title = re.sub(heading_tags, '', heading_markdown).lstrip()
 
-        section_codes_string = ordered_dict['section_code']
-        if len(section_codes_string) > 1:
-            section_codes = section_codes_string.split(',')
-            section_codes = [int(code) for code in section_codes]
-        else:
-            section_codes = [int(section_codes_string)]
+        section_codes = parse_section_codes(ordered_dict['section_code'])
 
         sections.append(
             Section(
@@ -32,6 +28,15 @@ def parse_classified_sections(classified_sections_ordered_dicts):
                 section_codes
             )
         )
-
     return sections
 
+
+def parse_section_codes(section_codes_string: str) -> List[int]:
+    section_codes_list = section_codes_string.split(',')
+    print(section_codes_list, file=sys.stderr)
+    return [
+        999 if code == '-' else
+        998 if code == '' else
+        int(code)
+        for code in section_codes_list
+    ]

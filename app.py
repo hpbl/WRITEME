@@ -1,8 +1,10 @@
 from flask import Flask, jsonify
 from API.dataProvider import get_provider
+from API.sectionProvider import get_section_provider
 from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
+
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -28,6 +30,13 @@ def load():
 def classify():
     classify_sections()
     return "classified readmes"
+
+
+@app.route('/sections')
+def sections():
+    provider = get_section_provider()
+    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    return jsonify([section.title for section in sections])
 
 
 @app.route('/<language>')
