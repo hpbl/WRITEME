@@ -15,11 +15,12 @@ def parse_classified_sections(classified_sections_ordered_dicts):
 
         heading_title = re.sub(heading_tags, '', heading_markdown).lstrip()
 
-        section_codes_string = ordered_dict['section_codes']
+        section_codes_string = ordered_dict['section_code']
         if len(section_codes_string) > 1:
             section_codes = section_codes_string.split(',')
+            section_codes = [int(code) for code in section_codes]
         else:
-            section_codes = [section_codes_string]
+            section_codes = [int(section_codes_string)]
 
         sections.append(
             Section(
