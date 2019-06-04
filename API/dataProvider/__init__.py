@@ -1,5 +1,5 @@
-from API.provider.Provider import Provider
-from API.provider.MockProvider import MockProvider
+from API.dataProvider.Provider import Provider
+from API.dataProvider.MockProvider import MockProvider
 
 
 def get_provider(debug):
