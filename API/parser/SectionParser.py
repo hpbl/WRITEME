@@ -1,7 +1,6 @@
-import sys
 import re
 from typing import List
-from API.parser.Section import Section
+from API.model.Section import Section
 
 
 def parse_classified_sections(classified_sections_ordered_dicts):
@@ -33,7 +32,6 @@ def parse_classified_sections(classified_sections_ordered_dicts):
 
 def parse_section_codes(section_codes_string: str) -> List[int]:
     section_codes_list = section_codes_string.split(',')
-    print(section_codes_list, file=sys.stderr)
     return [
         999 if code == '-' else
         998 if code == '' else

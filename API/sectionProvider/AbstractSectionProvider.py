@@ -1,6 +1,6 @@
 import abc
 from typing import Optional, List
-from API.parser.Section import Section
+from API.model.Section import Section
 
 
 class AbstractSectionProvider(metaclass=abc.ABCMeta):

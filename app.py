@@ -1,10 +1,11 @@
 from flask import Flask, jsonify
 from API.dataProvider import get_provider
 from API.sectionProvider import get_section_provider
+from API.sectionAnalyzer.SectionAnalyzer import group_sections_by_level
 from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
-
+from API.model.MyJSONEncoder import MyJSONEncoder
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -12,6 +13,7 @@ sys.path.append('containerizedModel')
 
 
 app = Flask(__name__)
+app.json_encoder = MyJSONEncoder
 
 
 @app.route('/')
@@ -36,7 +38,8 @@ def classify():
 def sections():
     provider = get_section_provider()
     sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
-    return jsonify([section.title for section in sections])
+    grouped_sections = group_sections_by_level(sections)
+    return jsonify(grouped_sections)
 
 
 @app.route('/<language>')
