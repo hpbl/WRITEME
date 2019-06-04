@@ -5,7 +5,7 @@ Version 2 of helper.py, meant for extraction using the following definition of "
 import markdown2
 from markdown2 import Markdown
 from bs4 import BeautifulSoup, NavigableString, Tag
-import re 
+import nltk
 from nltk import word_tokenize          
 from nltk.stem.porter import PorterStemmer
 import re

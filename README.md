@@ -69,5 +69,6 @@ Everything is inside a docker container for ease of environment configuration.
 ## Contributors
 - Hilton Pintor [@hpbl](mailto:hpbl@cin.ufpe.br).
 - Lucas Figueiredo [@lsf](mailto:lsf@cin.ufpe.br).
+- Ricardo Barioni [@rrb](mailto:rrb@cin.ufpe.br).
 
 Powered by [Voxar labs](cin.ufpe.br/~voxarlabs).

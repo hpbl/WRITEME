@@ -23,4 +23,4 @@ COPY . .
 
 # start the flask webserver
 ENTRYPOINT ["python"]
-CMD ["API/app.py"]
+CMD ["app.py"]

@@ -1,7 +1,7 @@
 numpy
 pandas
 scipy
-scikit-learn
+scikit-learn==0.20
 markdown2
 bs4
 nltk
@@ -9,3 +9,4 @@ html2text
 lxml
 flask
 requests
+joblib
