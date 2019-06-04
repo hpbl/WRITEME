@@ -35,22 +35,39 @@ Everything is inside a docker container for ease of environment configuration.
     ````
 4. The API should be live on http://0.0.0.0:5000/
 
+## Testing
+Tests are currently on the same module as the files they test. Their names start with `test_TestedFile`, where `TestedFile` is the file being tested.
+
+1. Run on terminal to open the container's shell:
+    ```bash
+    docker-compose run --entrypoint sh backend
+    ```
+2. Run on shell to run all tests:
+    ````bash
+    python -m unittest
+    ````
 
 ## Folder Structure
 - `API/`:
     - `config/`: Configuration scripts. Sets debug mode.
-    - `provider/`: Data provider scripts. Fetches data from API or local mock.
-    -  `app.py`: Initializes the server.
+    - `dataProvider/`: Data provider scripts. Fetches data from API or local mock.
+    - `model/`: Model classes.
+    - `parser`: Parsing and loading of CSV files.
+    - `sectionAnalyzer`: Sections grouping and analysis.
+    - `sectionProvider`: Provides sections (currently from CSV file)
 - `containerizedModel/`: Scripts related to the [classifier](https://github.com/hpbl/readmeclassifier).
+- `speedTests`: Tests regarding parallel requests.
+-  `app.py`: Initializes the server.
+
 
 
 ## Tool Roadmap
 
 ### Back-end
 - [x] Fetch top repos of language on GitHub.
-- [ ] Fetch README from repos.
-- [ ] Automatic classification of READMEs.
-- [ ] Grouping of classified sections.
+- [x] Fetch README from repos.
+- [x] Automatic classification of READMEs.
+- [x] Grouping of classified sections.
 - [ ] Document API.
 - [ ] Deploy.
 
