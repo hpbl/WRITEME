@@ -46,6 +46,10 @@ Tests are currently on the same module as the files they test. Their names start
     ````bash
     python -m unittest
     ````
+    
+## Endpoints
+To access the classified sections JSON, grouped by heading level: `/sections`
+
 
 ## Folder Structure
 - `API/`:

@@ -19,7 +19,7 @@ app.json_encoder = MyJSONEncoder
 @app.route('/')
 def hello():
     style = 'color:cyan;background-color:pink'
-    return f'<h1 style={style}>README Assist Tool</h1>'
+    return f'<h1 style={style}>README Assist Tool</h1><p>Access <code>/sections</code> for sections JSON</p>'
 
 
 @app.route('/load')
