@@ -8,7 +8,8 @@ class Section():
         self.section_codes = section_codes
 
     def __eq__(self, other):
-        return (self.file_id, self.section_id, self.readme_file_name, self.heading_level, self.title, self.section_codes) == (other.file_id, other.section_id, other.readme_file_name, other.heading_level, other.title, other.section_codes)
+        return (self.file_id, self.section_id, self.readme_file_name, self.heading_level, self.title, self.section_codes) \
+               == (other.file_id, other.section_id, other.readme_file_name, other.heading_level, other.title, other.section_codes)
 
     def to_json(self):
         return {

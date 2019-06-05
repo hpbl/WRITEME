@@ -19,7 +19,11 @@ app.json_encoder = MyJSONEncoder
 @app.route('/')
 def hello():
     style = 'color:cyan;background-color:pink'
-    return f'<h1 style={style}>README Assist Tool</h1><p>Access <code>/sections</code> for sections JSON</p>'
+    return f'<h1 style={style}>README Assist Tool</h1>' \
+        f'<ul>' \
+        f'<li>Access <a href="/sections">/sections</a> for sections JSON</li>' \
+        f'<li>Access <a href="/sections/level">/sections/level</a> for sections (grouped by level) JSON</li>' \
+        f'</ul>'
 
 
 @app.route('/load')
@@ -36,6 +40,13 @@ def classify():
 
 @app.route('/sections')
 def sections():
+    provider = get_section_provider()
+    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    return jsonify(sections)
+
+
+@app.route('/sections/level')
+def sections_by_level():
     provider = get_section_provider()
     sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
     grouped_sections = group_sections_by_level(sections)

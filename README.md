@@ -48,7 +48,9 @@ Tests are currently on the same module as the files they test. Their names start
     ````
     
 ## Endpoints
-To access the classified sections JSON, grouped by heading level: `/sections`
+Currently the API is static, it only serves pre-fetched Swift READMEs. The following endpoints are available:
+- To access the classified sections JSON: `/sections`
+- To access the classified sections JSON, grouped by heading level: `/sections/level`
 
 
 ## Folder Structure
