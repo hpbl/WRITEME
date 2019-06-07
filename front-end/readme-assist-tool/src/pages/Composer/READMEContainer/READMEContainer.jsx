@@ -1,6 +1,8 @@
 import React from 'react';
 import './READMEContainer.css';
+
 import TypeSectionContainer from './TypeSectionContainer/TypeSectionContainer';
+import { sectionCodes } from '../../../common/SectionTypes';
 
 function READMEContainer() {
   return (
@@ -10,7 +12,11 @@ function READMEContainer() {
         <p>&gt; tagline</p>
         <p>![header](image)</p>
       </div>
-      <TypeSectionContainer />
+      {
+        sectionCodes.map(code => (
+          <TypeSectionContainer sectionCode={code} key={code} />
+        ))
+      }
     </div>
   );
 }

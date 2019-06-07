@@ -1,6 +1,6 @@
 .Composer {
   text-align: center;
-  background-color: lightgray;
+  background-color: gray;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
