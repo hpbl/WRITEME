@@ -1,0 +1,14 @@
+.READMEContainer {
+  border: 1px solid gray;
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.TopSection {
+  text-align: left;
+}
