@@ -3,9 +3,19 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "husky": "^2.4.0",
+    "lint-staged": "^8.2.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-import": "^2.17.1",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "stylelint": "^9.10.1",
+    "stylelint-config-standard": "^18.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -27,5 +37,20 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json}": [
+      "eslint --ext=js --ext=jsx --fix .",
+      "git add"
+    ],
+    "src/**/*.css": [
+      "stylelint --fix",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
 }
