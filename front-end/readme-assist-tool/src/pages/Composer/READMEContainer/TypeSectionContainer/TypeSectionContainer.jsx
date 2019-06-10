@@ -2,15 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
-import { groupSectionsByHeadingLevel } from '../../../../common/SectionParser';
+import { groupSectionsByHeadingLevel, sortByOccurence } from '../../../../common/SectionParser';
 
 
-function sectionsToParagraph(sections, level) {
+function sectionsToParagraph(sections, headingLevel) {
   return sections.map((section) => {
-    const heading = '#'.repeat(level);
+    const heading = '#'.repeat(headingLevel);
     return (
       <p key={`${section.file_id}-${section.section_id}`}>
-        {`${heading} ${section.title}`}
+        {`${heading} ${section[0]} (${section[1]})`}
       </p>
     );
   });
@@ -20,6 +20,10 @@ function TypeSectionContainer(props) {
   const { sectionCode, sections } = props;
 
   const groupedSections = groupSectionsByHeadingLevel(sections);
+  const sortedOccurences = Object.keys(groupedSections).map(headingLevel => (
+    sortByOccurence(groupedSections[headingLevel])
+  ));
+  console.log(sortedOccurences);
 
   return (
     <div className="TypeSectionContainer">
@@ -29,9 +33,9 @@ function TypeSectionContainer(props) {
         {sectionTypes[sectionCode]}
       </code>
       {
-        Object.keys(groupedSections).map((level) => {
-          const levelSections = groupedSections[level];
-          return sectionsToParagraph(levelSections, level);
+        sortedOccurences.map((sortedSections, index) => {
+          const headingLevel = index + 1;
+          return sectionsToParagraph(sortedSections, headingLevel);
         })
       }
     </div>

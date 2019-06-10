@@ -26,7 +26,7 @@ function groupSectionsByKey(key, sections) {
 }
 
 
-/* Especific function for every key that can group sections */
+/* Grouping by Keys */
 export function groupSectionsByHeadingLevel(sections) {
   return groupSectionsByKey('heading_level', sections);
 }
@@ -35,7 +35,23 @@ export function groupSectionsByFirstSectionCode(sections) {
   return groupSectionsByKey('section_codes', sections);
 }
 
+/* Compute occurences and remove duplicates */
+export function sortByOccurence(sections) {
+  const occurences = {};
+  sections.forEach((section) => {
+    occurences[section.title] = (occurences[section.title] || 0) + 1;
+  });
+
+  const sortableOccurences = Object.keys(occurences).map(title => [title, occurences[title]]);
+
+  sortableOccurences.sort((titleA, titleB) => titleB[1] - titleA[1]);
+
+  return sortableOccurences;
+}
+
+
 export default {
   groupSectionsByHeadingLevel,
   groupSectionsByFirstSectionCode,
+  sortByOccurence,
 };
