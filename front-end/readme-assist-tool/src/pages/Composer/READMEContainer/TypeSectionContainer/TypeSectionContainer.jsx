@@ -23,7 +23,9 @@ function TypeSectionContainer(props) {
   const sortedOccurences = Object.keys(groupedSections).map(headingLevel => (
     sortByOccurence(groupedSections[headingLevel])
   ));
-  console.log(sortedOccurences);
+  const popularOccurences = sortedOccurences.map(sortedSections => (
+    sortedSections.filter(section => section[1] > 1)
+  ));
 
   return (
     <div className="TypeSectionContainer">
@@ -33,7 +35,7 @@ function TypeSectionContainer(props) {
         {sectionTypes[sectionCode]}
       </code>
       {
-        sortedOccurences.map((sortedSections, index) => {
+        popularOccurences.map((sortedSections, index) => {
           const headingLevel = index + 1;
           return sectionsToParagraph(sortedSections, headingLevel);
         })

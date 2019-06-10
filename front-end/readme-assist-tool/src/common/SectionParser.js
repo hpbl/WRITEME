@@ -39,7 +39,10 @@ export function groupSectionsByFirstSectionCode(sections) {
 export function sortByOccurence(sections) {
   const occurences = {};
   sections.forEach((section) => {
-    occurences[section.title] = (occurences[section.title] || 0) + 1;
+    const trimmedTitle = section.title.trim();
+    if (trimmedTitle !== '') {
+      occurences[trimmedTitle] = (occurences[trimmedTitle] || 0) + 1;
+    }
   });
 
   const sortableOccurences = Object.keys(occurences).map(title => [title, occurences[title]]);
