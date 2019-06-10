@@ -6,8 +6,12 @@
   margin-bottom: 20px;
 }
 
-code {
+.TypeSectionContainer > code {
   border: 1px solid black;
   padding-right: 2px;
   padding-left: 2px;
+}
+
+.TypeSectionContainer > p {
+  word-break: break-all;
 }
