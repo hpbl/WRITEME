@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
-import { groupSectionsByKey } from '../../../../common/SectionParser';
+import { groupSectionsByHeadingLevel } from '../../../../common/SectionParser';
 
 
 function sectionsToParagraph(sections, level) {
@@ -19,7 +19,7 @@ function sectionsToParagraph(sections, level) {
 function TypeSectionContainer(props) {
   const { sectionCode, sections } = props;
 
-  const groupedSections = groupSectionsByKey('heading_level', sections);
+  const groupedSections = groupSectionsByHeadingLevel(sections);
 
   return (
     <div className="TypeSectionContainer">

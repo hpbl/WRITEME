@@ -4,10 +4,10 @@ import './READMEContainer.css';
 import TypeSectionContainer from './TypeSectionContainer/TypeSectionContainer';
 import { sectionCodes } from '../../../common/SectionTypes';
 import sections from '../../../common/swift_sections';
-import { groupSectionsByKey } from '../../../common/SectionParser';
+import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 
 function READMEContainer() {
-  const groupedSections = groupSectionsByKey('section_codes', sections);
+  const groupedSections = groupSectionsByFirstSectionCode(sections);
   return (
     <div className="READMEContainer">
       <div className="TopSection">

@@ -8,7 +8,7 @@ function getValueForKey(key, section) {
   return originalValue;
 }
 
-export function groupSectionsByKey(key, sections) {
+function groupSectionsByKey(key, sections) {
   const groupedSections = {};
 
   sections.forEach((section) => {
@@ -25,4 +25,17 @@ export function groupSectionsByKey(key, sections) {
   return groupedSections;
 }
 
-export default { groupSectionsByKey };
+
+/* Especific function for every key that can group sections */
+export function groupSectionsByHeadingLevel(sections) {
+  return groupSectionsByKey('heading_level', sections);
+}
+
+export function groupSectionsByFirstSectionCode(sections) {
+  return groupSectionsByKey('section_codes', sections);
+}
+
+export default {
+  groupSectionsByHeadingLevel,
+  groupSectionsByFirstSectionCode,
+};
