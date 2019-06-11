@@ -16,32 +16,37 @@ function sectionsToParagraph(sections, headingLevel) {
   });
 }
 
-function TypeSectionContainer(props) {
-  const { sectionCode, sections } = props;
+class TypeSectionContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      headingLevel: 2,
+    };
+  }
 
-  const groupedSections = groupSectionsByHeadingLevel(sections);
-  const sortedOccurences = Object.keys(groupedSections).map(headingLevel => (
-    sortByOccurence(groupedSections[headingLevel])
-  ));
-  const popularOccurences = sortedOccurences.map(sortedSections => (
-    sortedSections.filter(section => section[1] > 1)
-  ));
+  render() {
+    const { sectionCode, sections } = this.props;
+    const { headingLevel } = this.state;
 
-  return (
-    <div className="TypeSectionContainer">
-      <code>
-        type:
-        {' '}
-        {sectionTypes[sectionCode]}
-      </code>
-      {
-        popularOccurences.map((sortedSections, index) => {
-          const headingLevel = index + 1;
-          return sectionsToParagraph(sortedSections, headingLevel);
-        })
-      }
-    </div>
-  );
+    const groupedSections = groupSectionsByHeadingLevel(sections);
+    const desiredLevelSections = groupedSections[headingLevel];
+    const sortedOccurences = sortByOccurence(desiredLevelSections);
+
+    const popularOccurences = sortedOccurences.filter(section => section[1] > 1);
+
+    return (
+      <div className="TypeSectionContainer">
+        <code>
+          type:
+          {' '}
+          {sectionTypes[sectionCode]}
+        </code>
+        {
+          sectionsToParagraph(popularOccurences, headingLevel)
+        }
+      </div>
+    );
+  }
 }
 
 TypeSectionContainer.propTypes = {
