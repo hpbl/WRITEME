@@ -20,6 +20,7 @@ class FileLoaderTestCase(unittest.TestCase):
     ]
     parsed_csv_file = []
 
+    nonexistent_markdown_file_path = 'API/parser/nonexistent_file.md'
     existent_markdown_file_path = 'API/parser/existent_file.md'
     markdown_file_content = """
         # File Title
@@ -62,6 +63,11 @@ class FileLoaderTestCase(unittest.TestCase):
             parsed_csv_file.append(ordered_dict)
 
         self.assertEqual(res, parsed_csv_file)
+
+    def test_load_markdown_file_nonexistent(self):
+        """Given that a file does not exist, assert that load_markdown_file returns None"""
+        res = load_markdown_file(self.nonexistent_markdown_file_path)
+        self.assertIsNone(res)
 
     def test_load_markdown_file(self):
         """Given that a file does exist, assert that load_markdown_file returns it's content"""
