@@ -51,6 +51,7 @@ Tests are currently on the same module as the files they test. Their names start
 Currently the API is static, it only serves pre-fetched Swift READMEs. The following endpoints are available:
 - To access the classified sections JSON: `/sections`
 - To access the classified sections JSON, grouped by heading level: `/sections/level`
+- To access every README in tree format: `/tree`
 
 
 ## Folder Structure
@@ -58,9 +59,10 @@ Currently the API is static, it only serves pre-fetched Swift READMEs. The follo
     - `config/`: Configuration scripts. Sets debug mode.
     - `dataProvider/`: Data provider scripts. Fetches data from API or local mock.
     - `model/`: Model classes.
-    - `parser`: Parsing and loading of CSV files.
+    - `parser`: Parsing and loading of CSV and Markdown files.
     - `sectionAnalyzer`: Sections grouping and analysis.
     - `sectionProvider`: Provides sections (currently from CSV file)
+    - `readmeProvider`: Provides readmes in tree format (currently from local .md files)
 - `containerizedModel/`: Scripts related to the [classifier](https://github.com/hpbl/readmeclassifier).
 - `speedTests`: Tests regarding parallel requests.
 -  `app.py`: Initializes the server.

@@ -6,6 +6,7 @@ from API.config import DEBUG
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
+from API.readmeProvider import get_readme_provider
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -23,6 +24,7 @@ def hello():
         f'<ul>' \
         f'<li>Access <a href="/sections">/sections</a> for sections JSON</li>' \
         f'<li>Access <a href="/sections/level">/sections/level</a> for sections (grouped by level) JSON</li>' \
+        f'<li>Access <a href="/tree">/tree</a> for READMEs headings in tree format JSON</li>' \
         f'</ul>'
 
 
@@ -51,6 +53,13 @@ def sections_by_level():
     sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
     grouped_sections = group_sections_by_level(sections)
     return jsonify(grouped_sections)
+
+
+@app.route('/tree')
+def readme_trees():
+    provider = get_readme_provider()
+    trees = provider.fetch_readmes_trees('containerizedModel/input/clf_target_readmes')
+    return jsonify(trees)
 
 
 @app.route('/<language>')
