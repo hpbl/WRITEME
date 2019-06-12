@@ -1,5 +1,5 @@
 import abc
-from typing import Optional, List
+from typing import Optional, List, Dict
 from API.model.Section import Section
 
 
