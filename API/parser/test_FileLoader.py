@@ -2,7 +2,7 @@ import unittest
 import csv
 import os
 import collections
-from API.parser.FileLoader import load_csv_file, load_markdown_file
+from API.parser.FileLoader import load_csv_file, load_markdown_file, get_markdown_file_names
 
 
 class FileLoaderTestCase(unittest.TestCase):
@@ -20,8 +20,11 @@ class FileLoaderTestCase(unittest.TestCase):
     ]
     parsed_csv_file = []
 
-    nonexistent_markdown_file_path = 'API/parser/nonexistent_file.md'
-    existent_markdown_file_path = 'API/parser/existent_file.md'
+    no_markdown_folder_path = 'API/parser/no/markdown/folder'
+    markdown_folder_path = 'API/parser'
+
+    nonexistent_markdown_file_name = f'nonexistent_file.md'
+    existent_markdown_file_name = f'existent_file.md'
     markdown_file_content = """
         # File Title
         > impressive tagline
@@ -42,6 +45,9 @@ class FileLoaderTestCase(unittest.TestCase):
             section_writer = csv.writer(sections_csv, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             section_writer.writerow(self.headers)
             [section_writer.writerow(row) for row in self.csv_file_rows]
+
+        self.nonexistent_markdown_file_path = f'{self.markdown_folder_path}/{self.nonexistent_markdown_file_name}'
+        self.existent_markdown_file_path = f'{self.markdown_folder_path}/{self.existent_markdown_file_name}'
 
         with open(self.existent_markdown_file_path, mode='w') as markdown_file:
             markdown_file.write(self.markdown_file_content)
@@ -73,6 +79,16 @@ class FileLoaderTestCase(unittest.TestCase):
         """Given that a file does exist, assert that load_markdown_file returns it's content"""
         res = load_markdown_file(self.existent_markdown_file_path)
         self.assertEqual(res, self.markdown_file_content)
+
+    def test_get_markdown_file_names(self):
+        """Given a path to a folder with markdown files, assert that get_markdown_file_names returns all file names"""
+        res = get_markdown_file_names(self.markdown_folder_path)
+        self.assertEqual(res, [self.existent_markdown_file_name])
+
+    def test_get_markdown_file_names_empty_folder(self):
+        """Given a path to a folder with no markdown files, assert that get_markdown_file_names returns empty list"""
+        res = get_markdown_file_names(self.no_markdown_folder_path)
+        self.assertEqual(res, [])
 
     def tearDown(self):
         os.remove(self.existent_csv_file_path)
