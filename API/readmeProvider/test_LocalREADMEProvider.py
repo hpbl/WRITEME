@@ -25,34 +25,36 @@ print('hello, world!')
 ```
 """
 
-    readmes_trees = [
-        [{
-            'level': 1,
-            'id': 'file-title',
-            'name': 'File Title',
-            'children': [
-                {
-                    'level': 2,
-                    'id': 'section-4',
-                    'name': "Section 4",
-                    'children': []
-                }
-            ]
-        }],
-        [{
-            'level': 2,
-            'id': 'section-2',
-            'name': 'Section 2',
-            'children': [
-                {
-                    'level': 3,
-                    'id': 'section-3-child',
-                    'name': 'Section 3 child',
-                    'children': []
-                }
-            ]
-        }]
-    ]
+    readmes_trees = {
+        '1.md':
+            [{
+                'level': 1,
+                'id': 'file-title',
+                'name': 'File Title',
+                'children': [
+                    {
+                        'level': 2,
+                        'id': 'section-4',
+                        'name': "Section 4",
+                        'children': []
+                    }
+                ]
+            }],
+        '2.md':
+            [{
+                'level': 2,
+                'id': 'section-2',
+                'name': 'Section 2',
+                'children': [
+                    {
+                        'level': 3,
+                        'id': 'section-3-child',
+                        'name': 'Section 3 child',
+                        'children': []
+                    }
+                ]
+            }]
+    }
 
     def setUp(self):
         self.provider = LocalREADMEProvider()

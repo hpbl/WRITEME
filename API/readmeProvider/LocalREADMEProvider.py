@@ -7,5 +7,10 @@ from API.readmeProvider.AbstractREADMEProvider import AbstractREADMEProvider
 class LocalREADMEProvider(AbstractREADMEProvider):
     def fetch_readmes_trees(self, url) -> List[List[Dict]]:
         markdown_file_names = get_markdown_file_names(url)
-        markdown_file_contents = [load_markdown_file(f'{url}/{file_name}') for file_name in markdown_file_names]
-        return [generate_section_tree(file_content) for file_content in markdown_file_contents]
+        markdown_trees = {
+            file_name: generate_section_tree(load_markdown_file(f'{url}/{file_name}'))
+            for file_name
+            in markdown_file_names
+        }
+
+        return markdown_trees
