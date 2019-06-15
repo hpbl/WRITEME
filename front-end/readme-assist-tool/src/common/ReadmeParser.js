@@ -1,26 +1,34 @@
-// import * as readmesTrees from './readmes_trees.json';
-function isEqual(tree, section) {
-  return (tree.name === section.title && tree.level === section.heading_level);
+function isEqual(sectionName, headingLevel, tree) {
+  return (tree.name === sectionName && tree.level === headingLevel);
 }
 
-function findSectionInTreeRecursion(section, tree) {
+function findSectionInTreeRecursion(sectionName, headingLevel, tree) {
   if (tree === []) {
     return [null];
   }
 
-  if (isEqual(tree, section)) {
+  if (isEqual(sectionName, headingLevel, tree)) {
     return [tree];
   }
 
   return tree.children
-    .map(child => findSectionInTreeRecursion(section, child));
+    .map(child => findSectionInTreeRecursion(sectionName, headingLevel, child));
 }
 
-export default function findSectionInTree(section, tree) {
-  return findSectionInTreeRecursion(section, tree)
+export function findSectionOccurencesInTree(section, tree) {
+  const { title, heading_level: headingLevel } = section;
+  return tree.map(sectionTree => findSectionInTreeRecursion(title, headingLevel, sectionTree))
     .flat(Infinity)
-    .filter(searchResult => searchResult.constructor === Object)[0];
+    .filter(searchResult => searchResult.constructor === Object);
 }
+
+export function findChildren(sectionTitle, headingLevel, tree) {
+  return findSectionOccurencesInTree({ title: sectionTitle, heading_level: headingLevel }, tree)
+    .map(occurence => occurence.children);
+}
+
+export default { findSectionOccurencesInTree, findChildren };
+
 
 /* eslint-disable */
 Object.defineProperty(Array.prototype, 'flat', {

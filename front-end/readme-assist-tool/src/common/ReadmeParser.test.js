@@ -1,4 +1,4 @@
-import findSectionInTree from './ReadmeParser';
+import { findSectionOccurencesInTree, findChildren } from './ReadmeParser';
 
 const alamoTree = [
   {
@@ -333,14 +333,15 @@ const alamoSections = [
     title: 'License',
   }];
 
+/* findSectionInTree tests */
 test('finds section in tree top level', () => {
   const desiredSectionTree = alamoTree[0];
-  expect(findSectionInTree(alamoSections[0], alamoTree[0]))
+  expect(findSectionOccurencesInTree(alamoSections[0], alamoTree)[0])
     .toBe(desiredSectionTree);
 });
 
 
-test('finds section in children', () => {
+test('finds section in second level', () => {
   const desiredSectionTree = {
     children: [],
     id: 'carthage',
@@ -359,6 +360,14 @@ test('finds section in children', () => {
     title: 'Carthage',
   };
 
-  expect(findSectionInTree(section, alamoTree[5]))
+  expect(findSectionOccurencesInTree(section, alamoTree)[0])
+    .toMatchObject(desiredSectionTree);
+});
+
+
+/* findChildren tests */
+test('finds children from section name and heading level', () => {
+  const desiredSectionTree = [alamoTree[5].children];
+  expect(findChildren('Installation', 2, alamoTree))
     .toMatchObject(desiredSectionTree);
 });
