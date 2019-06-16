@@ -1,0 +1,21 @@
+.READMEContainer {
+  border: 1px solid gray;
+  background-color: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-left: 40px;
+}
+
+.READMEContainer > .content {
+  position: fixed;
+  text-align: left;
+}
+
+.content > h2 {
+  margin-bottom: 10px;
+  margin-top: 30px;
+}

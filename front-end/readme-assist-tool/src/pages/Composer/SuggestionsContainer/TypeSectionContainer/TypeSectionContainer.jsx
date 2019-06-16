@@ -32,6 +32,9 @@ class TypeSectionContainer extends React.Component {
 
     this.setState({
       selectedSections,
+    }, () => {
+      const { onSectionToggle } = this.props;
+      onSectionToggle(toggledSection);
     });
   }
 
@@ -111,6 +114,7 @@ class TypeSectionContainer extends React.Component {
 
 TypeSectionContainer.propTypes = {
   sectionCode: PropTypes.string.isRequired,
+  onSectionToggle: PropTypes.func.isRequired,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
