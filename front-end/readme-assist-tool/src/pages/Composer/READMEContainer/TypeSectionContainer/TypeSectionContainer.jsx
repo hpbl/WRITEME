@@ -44,9 +44,18 @@ class TypeSectionContainer extends React.Component {
         <div className="section" key={`${newSection.sectionTitle}-${section[1]}`}>
           {this.renderSection(newSection, section[1])}
           {isSelected
-            && findChildren(newSection.sectionTitle, newSection.headingLevel)
-              .flat(Infinity)
-              .map(child => <p key={child.name}>{child.name}</p>)
+            && (
+            <div className="children">
+              {
+                findChildren(newSection.sectionTitle, newSection.headingLevel)
+                  .flat(Infinity)
+                  .map((child) => {
+                    const childSection = { sectionTitle: child.name, headingLevel: child.level };
+                    return this.renderSection(childSection, 1);
+                  })
+              }
+            </div>
+            )
           }
         </div>
       );

@@ -32,3 +32,12 @@ button {
   color: gray;
   font-weight: normal;
 }
+
+.children {
+  margin-top: 0;
+  margin-left: 20px;
+}
+
+h2 {
+  margin: 0;
+}
