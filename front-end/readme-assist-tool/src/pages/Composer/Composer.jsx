@@ -1,11 +1,11 @@
 import React from 'react';
 import './Composer.css';
-import READMEContainer from './READMEContainer/READMEContainer';
+import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 
 function Composer() {
   return (
     <div className="Composer">
-      <READMEContainer />
+      <SuggestionsContainer />
       <div className="ExampleSection" />
     </div>
   );

@@ -1,15 +1,15 @@
 import React from 'react';
-import './READMEContainer.css';
+import './SuggestionsContainer.css';
 
 import TypeSectionContainer from './TypeSectionContainer/TypeSectionContainer';
 import { sectionCodes } from '../../../common/SectionTypes';
 import sections from '../../../common/swift_sections';
 import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 
-function READMEContainer() {
+function SuggestionsContainer() {
   const groupedSections = groupSectionsByFirstSectionCode(sections);
   return (
-    <div className="READMEContainer">
+    <div className="SuggestionsContainer">
       <div className="TopSection">
         <h1># Project Name</h1>
         <p>&gt; tagline</p>
@@ -25,4 +25,4 @@ function READMEContainer() {
 }
 
 
-export default READMEContainer;
+export default SuggestionsContainer;
