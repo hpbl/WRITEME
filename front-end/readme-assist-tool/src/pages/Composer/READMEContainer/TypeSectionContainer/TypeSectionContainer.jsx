@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
 import { groupSectionsByHeadingLevel, sortByOccurence } from '../../../../common/SectionParser';
+import { findChildren } from '../../../../common/ReadmeParser';
 import isEqual from '../../../../common/Extensions';
-
 
 class TypeSectionContainer extends React.Component {
   constructor(props) {
@@ -25,7 +25,6 @@ class TypeSectionContainer extends React.Component {
     const sectionIndex = this.sectionIndex(toggledSection);
 
     if (sectionIndex === -1) {
-      console.log('adicionou');
       selectedSections.push(toggledSection);
     } else {
       selectedSections.splice(sectionIndex, 1);
@@ -41,23 +40,37 @@ class TypeSectionContainer extends React.Component {
       const newSection = { sectionTitle: section[0], headingLevel };
       const isSelected = this.sectionIndex(newSection) !== -1;
 
-      const heading = '#'.repeat(headingLevel);
-
       return (
-        <h2 key={`${section[0]}-${section[1]}`} className={isSelected ? 'selected' : 'unselected'}>
-          <button onClick={() => this.toggleSection(newSection)} type="button">
-            {`${heading} ${newSection.sectionTitle} (${section[1]})`}
-          </button>
-        </h2>
+        <div className="section" key={`${newSection.sectionTitle}-${section[1]}`}>
+          {this.renderSection(newSection, section[1])}
+          {isSelected
+            && findChildren(newSection.sectionTitle, newSection.headingLevel)
+              .flat(Infinity)
+              .map(child => <p key={child.name}>{child.name}</p>)
+          }
+        </div>
       );
     });
   }
 
+  renderSection(section, occurence) {
+    const isSelected = this.sectionIndex(section) !== -1;
+
+    const className = isSelected ? 'selected' : 'unselected';
+    const heading = '#'.repeat(section.headingLevel);
+
+    return (
+      <h2 className={className}>
+        <button onClick={() => this.toggleSection(section)} type="button">
+          {`${heading} ${section.sectionTitle} (${occurence})`}
+        </button>
+      </h2>
+    );
+  }
 
   render() {
     const { sectionCode, sections } = this.props;
-    const { headingLevel, selectedSections } = this.state;
-    console.log(selectedSections);
+    const { headingLevel } = this.state;
 
     const groupedSections = groupSectionsByHeadingLevel(sections);
     const desiredLevelSections = groupedSections[headingLevel];

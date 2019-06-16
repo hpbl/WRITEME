@@ -1,5 +1,4 @@
-import * as readmesTrees from './readmes_trees.json';
-import { findSectionOccurencesInTree, findChildren } from './ReadmeParser';
+import { findSectionOccurencesInTree, findChildren, trees } from './ReadmeParser';
 
 const alamoTree = [
   {
@@ -368,15 +367,12 @@ test('finds section in second level', () => {
 /* findChildren tests */
 test('finds children from section name and heading level', () => {
   const desiredSectionTree = [alamoTree[5].children];
-  expect(findChildren('Installation', 2, alamoTree))
+  expect(findChildren('Installation', 2, [alamoTree]))
     .toMatchObject(desiredSectionTree);
 });
 
 test('finds correct amount of occurences', () => {
   const section = { title: 'Security', heading_level: 2 };
-  const trees = Object.keys(readmesTrees)
-    .filter(key => key !== 'default')
-    .map(file => readmesTrees[file]);
 
   const occurences = trees
     .map(tree => findSectionOccurencesInTree(section, tree))

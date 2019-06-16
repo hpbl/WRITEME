@@ -1,3 +1,8 @@
+import * as readmesTrees from './readmes_trees.json';
+
+export const trees = Object.keys(readmesTrees.default)
+  .map(file => readmesTrees.default[file]);
+
 function isEqual(sectionName, headingLevel, tree) {
   return (tree.name === sectionName && tree.level === headingLevel);
 }
@@ -22,12 +27,15 @@ export function findSectionOccurencesInTree(section, tree) {
     .filter(searchResult => searchResult.constructor === Object);
 }
 
-export function findChildren(sectionTitle, headingLevel, tree) {
-  return findSectionOccurencesInTree({ title: sectionTitle, heading_level: headingLevel }, tree)
-    .map(occurence => occurence.children);
+export function findChildren(sectionTitle, headingLevel, treeList = trees) {
+  const section = { title: sectionTitle, heading_level: headingLevel };
+  return treeList.map(tree => findSectionOccurencesInTree(section, tree))
+    .flat(Infinity)
+    .map(occurence => occurence.children)
+    .filter(occurence => occurence.length > 0);
 }
 
-export default { findSectionOccurencesInTree, findChildren };
+export default { findSectionOccurencesInTree, findChildren, trees };
 
 
 /* eslint-disable */
