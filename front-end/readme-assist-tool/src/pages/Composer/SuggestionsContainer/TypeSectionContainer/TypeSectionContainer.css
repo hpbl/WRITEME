@@ -16,7 +16,7 @@
   word-break: break-all;
 }
 
-button {
+.TypeSectionContainer button {
   border: none;
   cursor: pointer;
   color: inherit;

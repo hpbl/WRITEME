@@ -10,12 +10,16 @@
   margin-left: 40px;
 }
 
-.READMEContainer > .content {
-  position: fixed;
+.READMEContainer > #READMEcontent {
   text-align: left;
 }
 
-.content > h2 {
+#READMEcontent h2 {
   margin-bottom: 10px;
   margin-top: 30px;
+}
+
+.READMEContainer button {
+  position: fixed;
+  right: 50px;
 }
