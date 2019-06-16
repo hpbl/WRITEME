@@ -38,27 +38,8 @@ class TypeSectionContainer extends React.Component {
   sectionsToParagraph(sections, headingLevel) {
     return sections.map((section) => {
       const newSection = { sectionTitle: section[0], headingLevel };
-      const isSelected = this.sectionIndex(newSection) !== -1;
-
-      return (
-        <div className="section" key={`${newSection.sectionTitle}-${section[1]}`}>
-          {this.renderSection(newSection, section[1])}
-          {isSelected
-            && (
-            <div className="children">
-              {
-                findChildren(newSection.sectionTitle, newSection.headingLevel)
-                  .flat(Infinity)
-                  .map((child) => {
-                    const childSection = { sectionTitle: child.name, headingLevel: child.level };
-                    return this.renderSection(childSection, 1);
-                  })
-              }
-            </div>
-            )
-          }
-        </div>
-      );
+      const occurence = section[1];
+      return this.renderSection(newSection, occurence);
     });
   }
 
@@ -69,11 +50,27 @@ class TypeSectionContainer extends React.Component {
     const heading = '#'.repeat(section.headingLevel);
 
     return (
-      <h2 className={className}>
-        <button onClick={() => this.toggleSection(section)} type="button">
-          {`${heading} ${section.sectionTitle} (${occurence})`}
-        </button>
-      </h2>
+      <div className="section" key={`${section.sectionTitle}-${section[1]}`}>
+        <h2 className={className}>
+          <button onClick={() => this.toggleSection(section)} type="button">
+            {`${heading} ${section.sectionTitle} (${occurence})`}
+          </button>
+        </h2>
+        {isSelected
+          && (
+          <div className="children">
+            {
+              findChildren(section.sectionTitle, section.headingLevel)
+                .flat(Infinity)
+                .map((child) => {
+                  const childSection = { sectionTitle: child.name, headingLevel: child.level };
+                  return this.renderSection(childSection, 1);
+                })
+            }
+          </div>
+          )
+        }
+      </div>
     );
   }
 
