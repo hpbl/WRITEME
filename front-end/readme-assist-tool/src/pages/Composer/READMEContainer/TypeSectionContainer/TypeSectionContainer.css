@@ -15,3 +15,20 @@
 .TypeSectionContainer > p {
   word-break: break-all;
 }
+
+button {
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-weight: inherit;
+}
+
+.selected {
+  color: black;
+  font-weight: bold;
+}
+
+.unselected {
+  color: gray;
+  font-weight: normal;
+}
