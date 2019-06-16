@@ -19,12 +19,11 @@ Writing a README that is effective is a problem for many developers. There isn't
 
 Recent (as of 2019) research has started to analyse the content and structure of README files by mining open-source repositories on GitHub, and so obtaining a general data-driven idea of what should be expected of this sort of file.
 
-Our tool takes advantage of these researches and builds a GUI on top of them, adding information specific to the type of project that is being documented, so the developer can have recommendations of how READMEs for this kind of project are documented today. 
-
+Our tool takes advantage of these researches and builds a GUI on top of them, adding information specific to the type of project that is being documented, so the developer can have recommendations of how READMEs for this kind of project are documented today.
 
 ## Running
 This tool was built using Python 3.5 and [Flask](http://flask.pocoo.org/).
- 
+
 Everything is inside a docker container for ease of environment configuration.
 
 1. Install and run [Docker](https://www.docker.com/products/docker-desktop).
@@ -34,6 +33,9 @@ Everything is inside a docker container for ease of environment configuration.
     docker-compose up
     ````
 4. The API should be live on http://0.0.0.0:5000/
+
+### Front-end
+Currently the front-end is not properly integrated with the back-end, but it can stand-alone for Swift READMEs. Check [README](./front-end/readme-assist-tool/README.md) for instructions.
 
 ## Testing
 Tests are currently on the same module as the files they test. Their names start with `test_TestedFile`, where `TestedFile` is the file being tested.
@@ -46,7 +48,7 @@ Tests are currently on the same module as the files they test. Their names start
     ````bash
     python -m unittest
     ````
-    
+
 ## Endpoints
 Currently the API is static, it only serves pre-fetched Swift READMEs. The following endpoints are available:
 - To access the classified sections JSON: `/sections`
