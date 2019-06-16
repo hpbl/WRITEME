@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
-import { groupSectionsByHeadingLevel, sortByOccurence } from '../../../../common/SectionParser';
+import { groupSectionsByHeadingLevel, sortByOccurence, computeFrequencyByLevel } from '../../../../common/SectionParser';
 import { findChildren } from '../../../../common/ReadmeParser';
 import isEqual from '../../../../common/Extensions';
 
@@ -48,6 +48,14 @@ class TypeSectionContainer extends React.Component {
 
     const className = isSelected ? 'selected' : 'unselected';
     const heading = '#'.repeat(section.headingLevel);
+    let desiredChildren = [];
+    const desiredChildrenLevel = section.headingLevel + 1;
+
+    if (isSelected) {
+      const children = findChildren(section.sectionTitle, section.headingLevel).flat(Infinity);
+      const groupedChildren = computeFrequencyByLevel(children);
+      desiredChildren = groupedChildren[desiredChildrenLevel - 1]; // starts on 0
+    }
 
     return (
       <div className="section" key={`${section.sectionTitle}-${section[1]}`}>
@@ -60,11 +68,13 @@ class TypeSectionContainer extends React.Component {
           && (
           <div className="children">
             {
-              findChildren(section.sectionTitle, section.headingLevel)
-                .flat(Infinity)
+              desiredChildren
                 .map((child) => {
-                  const childSection = { sectionTitle: child.name, headingLevel: child.level };
-                  return this.renderSection(childSection, 1);
+                  const childSection = {
+                    sectionTitle: child[0],
+                    headingLevel: desiredChildrenLevel,
+                  };
+                  return this.renderSection(childSection, child[1]);
                 })
             }
           </div>
