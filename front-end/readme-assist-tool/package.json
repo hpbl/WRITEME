@@ -17,6 +17,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.12.4",
     "gh-pages": "^2.0.1",
+    "git-branch-is": "^2.1.0",
     "stylelint": "^9.10.1",
     "stylelint-config-standard": "^18.3.0"
   },
@@ -56,7 +57,7 @@
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "pre-push": "echo branch"
+      "post-merge": "if git-branch-is master; then npm run deploy; fi"
     }
   }
 }
