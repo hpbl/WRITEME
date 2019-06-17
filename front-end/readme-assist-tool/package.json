@@ -55,7 +55,8 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged",
+      "prepush": "if branch is master; then npm run deploy;"
     }
   }
 }
