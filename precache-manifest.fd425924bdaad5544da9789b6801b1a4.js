@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b6bd4d9b5f579e68e40c4055dcc9a878",
+    "revision": "c5d6f5f4cee359d5d23cd9dad1a05580",
     "url": "/README-Assist-Tool/index.html"
   },
   {
