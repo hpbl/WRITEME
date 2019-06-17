@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/README-Assist-tool/static/css/main.2f429cc4.chunk.css",
-    "main.js": "/README-Assist-tool/static/js/main.eb67a123.chunk.js",
-    "main.js.map": "/README-Assist-tool/static/js/main.eb67a123.chunk.js.map",
-    "runtime~main.js": "/README-Assist-tool/static/js/runtime~main.1a7900d5.js",
-    "runtime~main.js.map": "/README-Assist-tool/static/js/runtime~main.1a7900d5.js.map",
-    "static/js/2.548e0644.chunk.js": "/README-Assist-tool/static/js/2.548e0644.chunk.js",
-    "static/js/2.548e0644.chunk.js.map": "/README-Assist-tool/static/js/2.548e0644.chunk.js.map",
-    "index.html": "/README-Assist-tool/index.html",
-    "precache-manifest.19edc547116c47452efa59b6972c36f1.js": "/README-Assist-tool/precache-manifest.19edc547116c47452efa59b6972c36f1.js",
-    "service-worker.js": "/README-Assist-tool/service-worker.js",
-    "static/css/main.2f429cc4.chunk.css.map": "/README-Assist-tool/static/css/main.2f429cc4.chunk.css.map"
+    "main.css": "/README-Assist-Tool/static/css/main.2f429cc4.chunk.css",
+    "main.js": "/README-Assist-Tool/static/js/main.a23a673d.chunk.js",
+    "main.js.map": "/README-Assist-Tool/static/js/main.a23a673d.chunk.js.map",
+    "runtime~main.js": "/README-Assist-Tool/static/js/runtime~main.e305208f.js",
+    "runtime~main.js.map": "/README-Assist-Tool/static/js/runtime~main.e305208f.js.map",
+    "static/js/2.548e0644.chunk.js": "/README-Assist-Tool/static/js/2.548e0644.chunk.js",
+    "static/js/2.548e0644.chunk.js.map": "/README-Assist-Tool/static/js/2.548e0644.chunk.js.map",
+    "index.html": "/README-Assist-Tool/index.html",
+    "precache-manifest.445f4550f1a0b59be889eae7efc7c1c4.js": "/README-Assist-Tool/precache-manifest.445f4550f1a0b59be889eae7efc7c1c4.js",
+    "service-worker.js": "/README-Assist-Tool/service-worker.js",
+    "static/css/main.2f429cc4.chunk.css.map": "/README-Assist-Tool/static/css/main.2f429cc4.chunk.css.map"
   }
 }
