@@ -1,5 +1,5 @@
 .READMEContainer {
-  border: 1px solid gray;
+  border: 1px solid lightgray;
   background-color: white;
   flex: 1;
   display: flex;
@@ -20,6 +20,14 @@
 }
 
 .READMEContainer button {
-  position: fixed;
-  right: 50px;
+  align-self: flex-end;
+  margin-right: -20px;
+  font-size: 1rem;
+  background-color: transparent;
+  border: 1px solid lightgray;
+  cursor: pointer;
+  color: #666;
+  padding: 5px 10px 5px 10px;
+  outline-color: #666;
+  outline-width: 2px;
 }

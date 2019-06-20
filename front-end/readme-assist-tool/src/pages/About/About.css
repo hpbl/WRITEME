@@ -1,0 +1,36 @@
+p,
+li {
+  color: #666;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #333;
+}
+
+.About {
+  padding-left: 25vw;
+  padding-right: 25vw;
+  padding-top: 4vw;
+  line-height: 1.5em;
+}
+
+.About h1 {
+  margin-bottom: 1em;
+}
+
+#titleSection {
+  margin-bottom: 5em;
+}
+
+#contentSection {
+  margin-bottom: 100px;
+}
+
+#contentSection li {
+  margin-top: 20px;
+}

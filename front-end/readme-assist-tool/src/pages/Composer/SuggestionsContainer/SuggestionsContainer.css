@@ -1,6 +1,5 @@
 .SuggestionsContainer {
-  border: 1px solid gray;
-  background-color: white;
+  border: 1px solid lightgray;
   flex: 1;
   display: flex;
   flex-direction: column;

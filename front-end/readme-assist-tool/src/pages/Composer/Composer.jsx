@@ -1,5 +1,6 @@
 import React from 'react';
 import './Composer.css';
+import About from '../About/About';
 import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 import READMEContainer from './READMEContainer/READMEContainer';
 import isEqual from '../../common/Extensions';
@@ -36,9 +37,12 @@ class Composer extends React.Component {
     const { selectedSections } = this.state;
 
     return (
-      <div className="Composer">
-        <SuggestionsContainer onSectionToggle={section => this.toggleSection(section)} />
-        <READMEContainer selectedSections={selectedSections} />
+      <div>
+        <About />
+        <div className="Composer">
+          <SuggestionsContainer onSectionToggle={section => this.toggleSection(section)} />
+          <READMEContainer selectedSections={selectedSections} />
+        </div>
       </div>
     );
   }
