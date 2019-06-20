@@ -1,0 +1,33 @@
+.About {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  padding-left: 4vw;
+  padding-right: 4vw;
+}
+
+.About p {
+  text-align: justify;
+  text-indent: 3ch;
+}
+
+#titleSection {
+  flex: 1;
+  margin-right: 4vw;
+}
+
+#titleSection > h1 {
+  text-align: center;
+}
+
+#contentSection {
+  flex: 1;
+}
+
+#contentSection li {
+  margin-top: 20px;
+}
+
+#contentSection > h1 {
+  text-align: center;
+}
