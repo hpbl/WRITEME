@@ -1,5 +1,5 @@
 .TypeSectionContainer {
-  border: 1px dashed gray;
+  border: 1px dashed lightgray;
   flex: 1;
   width: 100%;
   text-align: left;
@@ -7,7 +7,7 @@
 }
 
 .TypeSectionContainer > code {
-  border: 1px solid black;
+  border: 1px solid lightgray;
   padding-right: 2px;
   padding-left: 2px;
 }
