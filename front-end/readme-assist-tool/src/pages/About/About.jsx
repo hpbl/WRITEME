@@ -7,13 +7,13 @@ const About = () => (
     <div id="titleSection">
       <h1>Data Driven README</h1>
       <p>
-        Software is meant to be used, and the first step towards making your project usable is having a good README. If you&apos;re here that probably means you already know that, but what you might not know is what should be included in my README?
+        Software is meant to be used, and the first step towards making your project usable is having a good README. If you&apos;re here that probably means you already know that, but what you might not know is what should be included in your README?
       </p>
       <p>
-        There are many opinionated guides on how to write a README available online, but with an ever-growing number of programming languages, tools, and processes, having one definitive generic guide is bound to become outdated, and cannot take in consideration the specific details and nuances of projects built on different languages, for different systems.
+        There are several opinionated guides about how to write a README. However, with an ever-growing number of programming languages, tools, and processes, the idea of having one definitive generic guide is bound to become outdated, as it does not take into consideration the specific details and nuances of projects built on different languages, for different systems.
       </p>
       <p>
-        This tool will not write a README for you, but it will give you suggestions of what content should be included in your document, taking in consideration what programming language you&apos;re using. All suggestions are derived from live data from the most popular GitHub repositories and scientific research.
+        This tool will not write a README for you, but it will give you suggestions of what content should be included in your document, according to which programming language you&apos;re using. All suggestions are derived from live data from the most popular GitHub repositories and scientific research.
       </p>
     </div>
 
@@ -35,7 +35,7 @@ const About = () => (
       <ol>
         <li>
           <strong>WHAT: </strong>
-          A introduction on what your project does.
+          An introduction on what your project does.
         </li>
         <li>
           <strong>WHY:</strong>
