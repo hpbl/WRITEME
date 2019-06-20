@@ -1,11 +1,11 @@
 .Composer {
   text-align: center;
-  background-color: gray;
   min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   padding: 50px;
+  color: #333;
 }
 
 .Composer-logo {
