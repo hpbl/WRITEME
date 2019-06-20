@@ -21,6 +21,12 @@
   cursor: pointer;
   color: inherit;
   font-weight: inherit;
+  background-color: transparent;
+}
+
+.TypeSectionContainer button:focus {
+  outline: none;
+  color: #333;
 }
 
 .selected {

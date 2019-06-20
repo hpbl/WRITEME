@@ -20,6 +20,6 @@
 }
 
 .READMEContainer button {
-  position: fixed;
-  right: 50px;
+  align-self: flex-end;
+  margin-right: -20px;
 }
