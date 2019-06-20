@@ -30,7 +30,7 @@ const About = () => (
             [1]
           </a>
         </sup>
-        answered this question by querying GitHub repos and analyzing the content of each section from their READMEs. They found that the content of those sections can be classified in the following categories:
+        &nbsp;answered this question by querying GitHub repos and analyzing the content of each section from their READMEs. They found that the content of those sections can be classified in the following categories:
       </p>
       <ol>
         <li>
@@ -77,7 +77,7 @@ const About = () => (
             [2]
           </a>
         </sup>
-        we classify the sections of READMEs from the 100 most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
+        &nbsp;we classify the sections of READMEs from the 100 most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
       </p>
     </div>
   </div>

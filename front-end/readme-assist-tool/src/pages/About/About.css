@@ -1,33 +1,24 @@
 .About {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  padding-left: 4vw;
-  padding-right: 4vw;
+  padding-left: 25vw;
+  padding-right: 25vw;
+  padding-top: 4vw;
+  color: #666;
+  line-height: 1.5em;
 }
 
-.About p {
-  text-align: justify;
-  text-indent: 3ch;
+.About h1 {
+  color: #333;
+  margin-bottom: 1em;
 }
 
 #titleSection {
-  flex: 1;
-  margin-right: 4vw;
-}
-
-#titleSection > h1 {
-  text-align: center;
+  margin-bottom: 100px;
 }
 
 #contentSection {
-  flex: 1;
+  margin-bottom: 100px;
 }
 
 #contentSection li {
   margin-top: 20px;
-}
-
-#contentSection > h1 {
-  text-align: center;
 }
