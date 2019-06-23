@@ -77,6 +77,7 @@ class TypeSectionContainer extends React.Component {
                   const childSection = {
                     sectionTitle: child[0],
                     headingLevel: desiredChildrenLevel,
+                    readmes: child[2],
                   };
                   return this.renderSection(childSection, child[1]);
                 })

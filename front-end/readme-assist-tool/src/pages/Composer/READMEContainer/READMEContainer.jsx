@@ -4,6 +4,7 @@ import { sectionURL } from '../../../common/ReadmeParser';
 import './READMEContainer.css';
 
 function markdownHeaderToHTML(section) {
+  console.log('markdownHeaderToHTML', section);
   const title = section.sectionTitle;
   const level = section.headingLevel;
   const markdownTitle = `${'#'.repeat(level)} ${title}`;

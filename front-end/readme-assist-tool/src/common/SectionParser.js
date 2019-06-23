@@ -70,14 +70,18 @@ export function computeFrequencyByLevel(sections) {
     const levelSections = frequencyByLevel[section.level];
     const trimmedTitle = section.name.trim();
     if (trimmedTitle !== '') {
-      levelSections[trimmedTitle] = (levelSections[trimmedTitle] || 0) + 1;
+      if (levelSections[trimmedTitle]) {
+        levelSections[trimmedTitle].push(section.readme);
+      } else {
+        levelSections[trimmedTitle] = [section.readme];
+      }
     }
   });
 
   return Object.keys(frequencyByLevel).map((level) => {
     const levelSections = frequencyByLevel[level];
     const sortableOccurences = Object.keys(levelSections)
-      .map(title => [title, levelSections[title]]);
+      .map(title => [title, levelSections[title].length, levelSections[title]]);
     sortableOccurences.sort((titleA, titleB) => titleB[1] - titleA[1]);
     return sortableOccurences;
   });
