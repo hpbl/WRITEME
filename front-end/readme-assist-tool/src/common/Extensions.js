@@ -1,3 +1,20 @@
+function arrayIsEqual(a, b) {
+  if (a === b) return true;
+  if (a == null || b == null) return false;
+  if (a.length !== b.length) return false;
+
+  // If you don't care about the order of the elements inside
+  // the array, you should sort both arrays here.
+  // Please note that calling sort on an array will modify that array.
+  // you might want to clone your array first.
+
+  for (let i = 0; i < a.length; i += 1) {
+    if (a[i] !== b[i]) return false;
+  }
+
+  return true;
+}
+
 export default function isEquivalent(a, b) {
   // Create arrays of property names
   const aProps = Object.getOwnPropertyNames(a);
@@ -14,7 +31,7 @@ export default function isEquivalent(a, b) {
 
     // If values of same property are not equal,
     // objects are not equivalent
-    if (a[propName] !== b[propName]) {
+    if (a[propName] !== b[propName] && !arrayIsEqual(a[propName], b[propName])) {
       return false;
     }
   }

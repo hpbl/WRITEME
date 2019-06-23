@@ -35,7 +35,17 @@ export function findChildren(sectionTitle, headingLevel, treeList = trees) {
     .filter(occurence => occurence.length > 0);
 }
 
-export default { findSectionOccurencesInTree, findChildren, trees };
+export function sectionURL(section) {
+  const baseURL = 'https://github.com/';
+  const trimmedSectionTitle = section.sectionTitle.replace(' ', '-');
+
+  return section.readmes.map(readme => (
+    `${baseURL}${readme.replace('.md', '').replace('.', '/')}#${trimmedSectionTitle}`));
+}
+
+export default {
+  findSectionOccurencesInTree, findChildren, trees, sectionURL,
+};
 
 
 /* eslint-disable */

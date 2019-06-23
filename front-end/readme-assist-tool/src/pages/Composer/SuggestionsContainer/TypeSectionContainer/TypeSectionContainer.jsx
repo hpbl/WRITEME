@@ -4,7 +4,7 @@ import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
 import { groupSectionsByHeadingLevel, sortByOccurence, computeFrequencyByLevel } from '../../../../common/SectionParser';
 import { findChildren } from '../../../../common/ReadmeParser';
-import isEqual from '../../../../common/Extensions';
+import isEquivalent from '../../../../common/Extensions';
 
 class TypeSectionContainer extends React.Component {
   constructor(props) {
@@ -17,7 +17,8 @@ class TypeSectionContainer extends React.Component {
 
   sectionIndex(section) {
     const { selectedSections } = this.state;
-    return selectedSections.findIndex(selectedSection => isEqual(section, selectedSection));
+    return selectedSections.findIndex(selectedSection => (
+      isEquivalent(section, selectedSection)));
   }
 
   toggleSection(toggledSection) {
@@ -40,7 +41,7 @@ class TypeSectionContainer extends React.Component {
 
   sectionsToParagraph(sections, headingLevel) {
     return sections.map((section) => {
-      const newSection = { sectionTitle: section[0], headingLevel };
+      const newSection = { sectionTitle: section[0], headingLevel, readmes: section[2] };
       const occurence = section[1];
       return this.renderSection(newSection, occurence);
     });

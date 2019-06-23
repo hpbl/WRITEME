@@ -41,11 +41,16 @@ export function sortByOccurence(sections) {
   sections.forEach((section) => {
     const trimmedTitle = section.title.trim();
     if (trimmedTitle !== '') {
-      occurences[trimmedTitle] = (occurences[trimmedTitle] || 0) + 1;
+      if (occurences[trimmedTitle]) {
+        occurences[trimmedTitle].push(section.readme_file_name);
+      } else {
+        occurences[trimmedTitle] = [section.readme_file_name];
+      }
     }
   });
 
-  const sortableOccurences = Object.keys(occurences).map(title => [title, occurences[title]]);
+  const sortableOccurences = Object.keys(occurences).map(title => (
+    [title, occurences[title].length, occurences[title]]));
 
   sortableOccurences.sort((titleA, titleB) => titleB[1] - titleA[1]);
 
