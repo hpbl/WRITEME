@@ -4,7 +4,6 @@ import { sectionURL } from '../../../common/ReadmeParser';
 import './READMEContainer.css';
 
 function markdownHeaderToHTML(section) {
-  console.log('markdownHeaderToHTML', section);
   const title = section.sectionTitle;
   const level = section.headingLevel;
   const markdownTitle = `${'#'.repeat(level)} ${title}`;
@@ -48,7 +47,7 @@ function markdownHeaderToHTML(section) {
   );
 
   return (
-    <div>
+    <div key={key}>
       {header}
       {exampleLink}
     </div>
@@ -83,9 +82,9 @@ const READMEContainer = ({ selectedSections }) => (
 READMEContainer.propTypes = {
   selectedSections: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      file_id: PropTypes.string.isRequired,
-      section_id: PropTypes.string.isRequired,
+      sectionTitle: PropTypes.string.isRequired,
+      headingLevel: PropTypes.number.isRequired,
+      readmes: PropTypes.PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   ).isRequired,
 };
