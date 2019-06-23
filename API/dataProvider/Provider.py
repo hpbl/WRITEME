@@ -18,11 +18,13 @@ class Provider(AbstractDataProvider):
             queries.append(query_url)
             repositories.append(rq.get(query_url).json())
 
+        print(repositories, file=sys.stderr)
+        print(queries, file=sys.stderr)
         return self.json_responses(repositories, queries)
 
     def fetch_readme_url(self, repo_full_name):
         base_url = 'https://api.github.com/repos'
-        token = 'b5d003b1b520254348e27c74552f4367b7afb0cd'
+        token = 'be2d9d04c72598e87784042c853b91a662b86d9b'
         request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
 
         try:
@@ -71,6 +73,7 @@ class Provider(AbstractDataProvider):
 
     def json_responses(self, responses, urls):
         json = {}
+        print(responses, file=sys.stderr)
         json["repos"] = reduce(lambda accum, response: accum + response["items"], responses, [])
         json["urls"] = urls
         return json
