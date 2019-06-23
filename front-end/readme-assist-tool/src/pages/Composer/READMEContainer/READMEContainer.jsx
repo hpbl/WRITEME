@@ -1,27 +1,57 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { sectionURL } from '../../../common/ReadmeParser';
 import './READMEContainer.css';
 
-function markdownHeaderToHTML(title, level) {
+function markdownHeaderToHTML(section) {
+  const title = section.sectionTitle;
+  const level = section.headingLevel;
   const markdownTitle = `${'#'.repeat(level)} ${title}`;
   const key = `${title}-${level}`;
+
+  let header;
   switch (level) {
     case 1:
-      return <h1 key={key}>{markdownTitle}</h1>;
+      header = <h1 key={key}>{markdownTitle}</h1>;
+      break;
     case 2:
-      return <h2 key={key}>{markdownTitle}</h2>;
+      header = <h2 key={key}>{markdownTitle}</h2>;
+      break;
     case 3:
-      return <h3 key={key}>{markdownTitle}</h3>;
+      header = <h3 key={key}>{markdownTitle}</h3>;
+      break;
     case 4:
-      return <h4 key={key}>{markdownTitle}</h4>;
+      header = <h4 key={key}>{markdownTitle}</h4>;
+      break;
     case 5:
-      return <h5 key={key}>{markdownTitle}</h5>;
+      header = <h5 key={key}>{markdownTitle}</h5>;
+      break;
     case 6:
-      return <h6 key={key}>{markdownTitle}</h6>;
+      header = <h6 key={key}>{markdownTitle}</h6>;
+      break;
     default:
       console.log(`Unexpected headingLevel ${level}`);
-      return undefined;
   }
+
+  const exampleURL = sectionURL(section)[0];
+  const exampleLink = (
+    <a
+      rel="noopener noreferrer"
+      target="_blank"
+      href={exampleURL}
+    >
+      [//]: # (
+      {exampleURL}
+      )
+    </a>
+  );
+
+  return (
+    <div key={key}>
+      {header}
+      {exampleLink}
+    </div>
+  );
 }
 
 function downloadMarkdownFile() {
@@ -43,11 +73,7 @@ const READMEContainer = ({ selectedSections }) => (
         <p>![header](image)</p>
       </div>
       {
-        selectedSections.map((section) => {
-          const title = section.sectionTitle;
-          const level = section.headingLevel;
-          return markdownHeaderToHTML(title, level);
-        })
+        selectedSections.map(section => markdownHeaderToHTML(section))
       }
     </div>
   </div>
@@ -56,9 +82,9 @@ const READMEContainer = ({ selectedSections }) => (
 READMEContainer.propTypes = {
   selectedSections: PropTypes.arrayOf(
     PropTypes.shape({
-      title: PropTypes.string.isRequired,
-      file_id: PropTypes.string.isRequired,
-      section_id: PropTypes.string.isRequired,
+      sectionTitle: PropTypes.string.isRequired,
+      headingLevel: PropTypes.number.isRequired,
+      readmes: PropTypes.PropTypes.arrayOf(PropTypes.string).isRequired,
     }),
   ).isRequired,
 };
