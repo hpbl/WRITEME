@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "89ff23b937285b2af7d3c98811f39dca",
+    "revision": "86b31062029279428f827d51ba1fe5d7",
     "url": "/README-Assist-Tool/index.html"
   },
   {
-    "revision": "396835ffcd63c6f69810",
+    "revision": "e8e208c27f433369e87d",
     "url": "/README-Assist-Tool/static/css/main.1b528878.chunk.css"
   },
   {
@@ -12,8 +12,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/README-Assist-Tool/static/js/2.81038889.chunk.js"
   },
   {
-    "revision": "396835ffcd63c6f69810",
-    "url": "/README-Assist-Tool/static/js/main.da4ea890.chunk.js"
+    "revision": "e8e208c27f433369e87d",
+    "url": "/README-Assist-Tool/static/js/main.37e096c9.chunk.js"
   },
   {
     "revision": "0b03a72aec1497233df9",
