@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import './About.css';
 
 const About = ({ numRepos }) => (
@@ -82,6 +83,15 @@ const About = ({ numRepos }) => (
         {numRepos}
         &nbsp;most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
       </p>
+    </div>
+
+    <div id="links">
+      <h1>Supported languages</h1>
+      <p>This tool is meant to work with every programming language that has projects on GitHub, but for now, tests are happening with the following languages:</p>
+      <ul>
+        <li><Link to="composer/python">Python</Link></li>
+        <li><Link to="composer/swift">Swift</Link></li>
+      </ul>
     </div>
   </div>
 );
