@@ -9,7 +9,7 @@ import * as serviceWorker from './serviceWorker';
 
 function App() {
   return (
-    <BrowserRouter basename={process.env.PUBLIC_UR} onUpdate={() => window.scrollTo(0, 0)}>
+    <BrowserRouter basename="/README-Assist-Tool" onUpdate={() => window.scrollTo(0, 0)}>
       <Switch>
         <Route path="/" exact component={About} />
         <Route path={`${process.env.PUBLIC_UR}/pub`} exact component={About} />
