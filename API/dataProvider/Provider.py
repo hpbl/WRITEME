@@ -16,15 +16,14 @@ class Provider(AbstractDataProvider):
         for page_number, per_page in enumerate(pages):
             query_url = self.assemble_repository_query(parameters, sort, page_number + 1, per_page)
             queries.append(query_url)
+            print("query:" + query_url, file=sys.stderr)
             repositories.append(rq.get(query_url).json())
 
-        print(repositories, file=sys.stderr)
-        print(queries, file=sys.stderr)
         return self.json_responses(repositories, queries)
 
     def fetch_readme_url(self, repo_full_name):
         base_url = 'https://api.github.com/repos'
-        token = 'be2d9d04c72598e87784042c853b91a662b86d9b'
+        token = '3ee6385a3d50a70d4921021f440a46e2a494bde0'
         request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
 
         try:
@@ -73,7 +72,7 @@ class Provider(AbstractDataProvider):
 
     def json_responses(self, responses, urls):
         json = {}
-        print(responses, file=sys.stderr)
+
         json["repos"] = reduce(lambda accum, response: accum + response["items"], responses, [])
         json["urls"] = urls
         return json
