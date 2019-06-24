@@ -12,8 +12,6 @@ function App() {
     <BrowserRouter basename="/README-Assist-Tool" onUpdate={() => window.scrollTo(0, 0)}>
       <Switch>
         <Route path="/" exact component={About} />
-        <Route path={`${process.env.PUBLIC_UR}/pub`} exact component={About} />
-        <Route path="README-Assist-Tool/teste" exact component={About} />
         <Route path="/composer/:language" component={Composer} />
       </Switch>
     </BrowserRouter>
