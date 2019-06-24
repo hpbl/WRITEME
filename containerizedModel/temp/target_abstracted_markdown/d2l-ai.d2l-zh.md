@@ -4,9 +4,9 @@
 
 @abstr_hyperlink | @abstr_hyperlink | @abstr_hyperlink 
 
-## What's New
+## 直播番外篇+赠全彩精装版
 
-纸质书 @abstr_number 月 @abstr_number 日首印 @abstr_number 册（精装&平装），上架两周已重印 @abstr_number 册（精装&平装）。为了感谢大家的支持，我们计划在 @abstr_number 月 @abstr_number 日（周六）上午直播《动手学深度学习》番外篇（第 @abstr_number 课）：深度学习中的注意力机制。具体时间和参与方式会在本页面更新。
+纸质书 @abstr_number 月 @abstr_number 日首印 @abstr_number 册（精装&平装），上架两周已重印 @abstr_number 册（精装&平装）。为了感谢大家的支持，我们计划在北京时间 @abstr_number 月 @abstr_number 日（周六）上午 @abstr_number 点直播《动手学深度学习》番外篇（第 @abstr_number 课）：深度学习中的注意力机制。参与者有机会获得全彩精装版赠书。参与方式及详情点 @abstr_hyperlink 。
 
 ## 英文版 _Dive into Deep Learning_
 
