@@ -10,7 +10,6 @@ function getValueForKey(key, section) {
 
 function groupSectionsByKey(key, sections) {
   const groupedSections = {};
-
   sections.forEach((section) => {
     const groupKey = getValueForKey(key, section);
     const codeArray = groupedSections[groupKey];

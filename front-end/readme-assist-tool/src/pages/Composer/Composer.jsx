@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './Composer.css';
 import About from '../About/About';
 import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
@@ -6,8 +7,8 @@ import READMEContainer from './READMEContainer/READMEContainer';
 import isEqual from '../../common/Extensions';
 
 class Composer extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selectedSections: [],
     };
@@ -35,17 +36,29 @@ class Composer extends React.Component {
 
   render() {
     const { selectedSections } = this.state;
+    const { match: { params: { language } } } = this.props;
 
     return (
       <div>
         <About />
         <div className="Composer">
-          <SuggestionsContainer onSectionToggle={section => this.toggleSection(section)} />
+          <SuggestionsContainer
+            language={language}
+            onSectionToggle={section => this.toggleSection(section)}
+          />
           <READMEContainer selectedSections={selectedSections} />
         </div>
       </div>
     );
   }
 }
+
+Composer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      language: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default Composer;

@@ -1,4 +1,4 @@
-import { findSectionOccurencesInTree, findChildren, trees } from './ReadmeParser';
+import { findSectionOccurencesInTree, findChildren } from './ReadmeParser';
 
 const alamoTree = [
   {
@@ -367,17 +367,17 @@ test('finds section in second level', () => {
 /* findChildren tests */
 test('finds children from section name and heading level', () => {
   const desiredSectionTree = [alamoTree[5].children];
-  expect(findChildren('Installation', 2, [alamoTree]))
+  expect(findChildren('Installation', 2, [alamoTree], 'swift'))
     .toMatchObject(desiredSectionTree);
 });
 
-test('finds correct amount of occurences', () => {
-  const section = { title: 'Security', heading_level: 2 };
-
-  const occurences = trees
-    .map(tree => findSectionOccurencesInTree(section, tree))
-    .filter(occurence => occurence.length > 0);
-
-  expect(occurences.length)
-    .toBe(2);
-});
+// test('finds correct amount of occurences', () => {
+//   const section = { title: 'Security', heading_level: 2 };
+//
+//   const occurences = trees
+//     .map(tree => findSectionOccurencesInTree(section, tree))
+//     .filter(occurence => occurence.length > 0);
+//
+//   expect(occurences.length)
+//     .toBe(2);
+// });
