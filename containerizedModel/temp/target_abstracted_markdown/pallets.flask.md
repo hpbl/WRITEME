@@ -23,9 +23,9 @@ Install and update using `pip`_:
     
     app = Flask(__name__)
     
-    @app.route('/')
+    @app.route("/")
     def hello():
-        return 'Hello, World!'
+        return "Hello, World!"
     
 
 .. code-block:: text
@@ -52,12 +52,10 @@ The Pallets organization develops and supports Flask and the libraries it uses. 
 
   * Website: https://www.palletsprojects.com/p/flask/
   * Documentation: http://flask.pocoo.org/docs/
-  * License: `BSD <https://github.com/pallets/flask/blob/master/LICENSE>`_
   * Releases: https://pypi.org/project/Flask/
   * Code: https://github.com/pallets/flask
   * Issue tracker: https://github.com/pallets/flask/issues
   * Test status: https://dev.azure.com/pallets/pallets/_build?definitionId= @abstr_number 
-  * Test coverage: https://codecov.io/gh/pallets/flask
   * Official chat: https://discord.gg/t @abstr_number rrQZH
 
 
