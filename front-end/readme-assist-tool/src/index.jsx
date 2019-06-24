@@ -13,6 +13,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={About} />
         <Route path={`${process.env.PUBLIC_UR}/pub`} exact component={About} />
+        <Route path="README-Assist-Tool/teste" exact component={About} />
         <Route path="/composer/:language" component={Composer} />
       </Switch>
     </BrowserRouter>
