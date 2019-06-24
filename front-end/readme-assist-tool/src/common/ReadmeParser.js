@@ -1,7 +1,6 @@
 /* eslint no-param-reassign: 0 */
-import * as readmesTrees from './readmes_trees.json';
-
-export const trees = readmesTrees.default;
+import * as swiftReadmesTrees from './readmes_trees.json';
+import * as pythonReadmesTrees from './python_trees.json';
 
 function isEqual(sectionName, headingLevel, tree) {
   return (tree.name === sectionName && tree.level === headingLevel);
@@ -28,7 +27,9 @@ export function findSectionOccurencesInTree(section, tree, repoName) {
     .filter(searchResult => searchResult.constructor === Object);
 }
 
-export function findChildren(sectionTitle, headingLevel, treeDict = trees) {
+export function findChildren(sectionTitle, headingLevel, language) {
+  const treeDict = language === 'swift' ? swiftReadmesTrees.default : pythonReadmesTrees.default;
+
   const section = { title: sectionTitle, heading_level: headingLevel };
   const repos = Object.keys(treeDict);
   return repos.map(repoName => findSectionOccurencesInTree(section, treeDict[repoName], repoName))
@@ -49,7 +50,7 @@ export function sectionURL(section) {
 }
 
 export default {
-  findSectionOccurencesInTree, findChildren, trees, sectionURL,
+  findSectionOccurencesInTree, findChildren, sectionURL,
 };
 
 

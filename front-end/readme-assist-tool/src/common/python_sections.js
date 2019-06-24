@@ -1,4 +1,3 @@
-/* eslint-disable */
 const sections = [
   {
     file_id: '1',
@@ -21305,3 +21304,5 @@ const sections = [
     title: 'Segmentation speed',
   },
 ];
+
+export default sections;

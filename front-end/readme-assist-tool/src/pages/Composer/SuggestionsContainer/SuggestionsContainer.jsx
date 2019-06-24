@@ -4,10 +4,12 @@ import './SuggestionsContainer.css';
 
 import TypeSectionContainer from './TypeSectionContainer/TypeSectionContainer';
 import { sectionCodes } from '../../../common/SectionTypes';
-import sections from '../../../common/swift_sections';
+import swiftSections from '../../../common/swift_sections';
+import pythonSections from '../../../common/python_sections';
 import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 
-function SuggestionsContainer({ onSectionToggle }) {
+function SuggestionsContainer({ onSectionToggle, language }) {
+  const sections = (language === 'swift') ? swiftSections : pythonSections;
   const groupedSections = groupSectionsByFirstSectionCode(sections);
   return (
     <div className="SuggestionsContainer">
@@ -19,6 +21,7 @@ function SuggestionsContainer({ onSectionToggle }) {
       {
         sectionCodes.map(code => (
           <TypeSectionContainer
+            language={language}
             sectionCode={code}
             key={code}
             sections={groupedSections[code]}
@@ -32,6 +35,7 @@ function SuggestionsContainer({ onSectionToggle }) {
 
 SuggestionsContainer.propTypes = {
   onSectionToggle: PropTypes.func.isRequired,
+  language: PropTypes.string.isRequired,
 };
 
 

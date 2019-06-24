@@ -55,8 +55,11 @@ class TypeSectionContainer extends React.Component {
     let desiredChildren = [];
     const desiredChildrenLevel = section.headingLevel + 1;
 
+    const { language } = this.props;
+
     if (isSelected) {
-      const children = findChildren(section.sectionTitle, section.headingLevel).flat(Infinity);
+      const children = findChildren(section.sectionTitle, section.headingLevel, language)
+        .flat(Infinity);
       const groupedChildren = computeFrequencyByLevel(children);
       desiredChildren = groupedChildren[desiredChildrenLevel - 1]; // starts on 0
     }
@@ -124,6 +127,7 @@ TypeSectionContainer.propTypes = {
       section_id: PropTypes.string.isRequired,
     }),
   ),
+  language: PropTypes.string.isRequired,
 };
 
 TypeSectionContainer.defaultProps = {
