@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import React from 'react';
+import PropTypes from 'prop-types';
 import './About.css';
 
-const About = () => (
+const About = ({ numRepos }) => (
   <div className="About">
     <div id="titleSection">
       <h1>Data Driven README</h1>
@@ -77,10 +78,20 @@ const About = () => (
             [2]
           </a>
         </sup>
-        &nbsp;we classify the sections of READMEs from the 100 most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
+        &nbsp;we classify the sections of READMEs from the&nbsp;
+        {numRepos}
+        &nbsp;most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
       </p>
     </div>
   </div>
 );
+
+About.propTypes = {
+  numRepos: PropTypes.string,
+};
+
+About.defaultProps = {
+  numRepos: '',
+};
 
 export default About;

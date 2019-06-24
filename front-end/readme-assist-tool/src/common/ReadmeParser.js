@@ -49,8 +49,13 @@ export function sectionURL(section) {
     `${baseURL}${readme.replace('.md', '').replace('.', '/')}#${trimmedSectionTitle}`));
 }
 
+export function numReposForLanguage(language) {
+  const treeDict = language === 'swift' ? swiftReadmesTrees.default : pythonReadmesTrees.default;
+  return Object.keys(treeDict).length;
+}
+
 export default {
-  findSectionOccurencesInTree, findChildren, sectionURL,
+  findSectionOccurencesInTree, findChildren, sectionURL, numReposForLanguage,
 };
 
 

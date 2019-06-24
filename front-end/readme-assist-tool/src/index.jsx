@@ -6,8 +6,6 @@ import Composer from './pages/Composer/Composer';
 import About from './pages/About/About';
 import * as serviceWorker from './serviceWorker';
 
-console.log('p', process.env.PUBLIC_URL);
-
 function App() {
   return (
     <HashRouter basename={`${process.env.PUBLIC_URL}/`} onUpdate={() => window.scrollTo(0, 0)}>

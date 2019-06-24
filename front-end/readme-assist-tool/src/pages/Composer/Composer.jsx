@@ -5,6 +5,7 @@ import About from '../About/About';
 import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 import READMEContainer from './READMEContainer/READMEContainer';
 import isEqual from '../../common/Extensions';
+import { numReposForLanguage } from '../../common/ReadmeParser';
 
 class Composer extends React.Component {
   constructor(props) {
@@ -37,10 +38,11 @@ class Composer extends React.Component {
   render() {
     const { selectedSections } = this.state;
     const { match: { params: { language } } } = this.props;
+    const numRepos = numReposForLanguage(language);
 
     return (
       <div>
-        <About />
+        <About numRepos={`${numRepos}`} />
         <div className="Composer">
           <SuggestionsContainer
             language={language}
