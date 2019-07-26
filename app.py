@@ -71,11 +71,13 @@ def get_language_repos(language):
     provider = get_provider(DEBUG)
     formatted_json = provider.fetch_repositories(language_query, sort, number_repos)
 
-    names_readme_urls_tuples = [
-        (repo['full_name'], provider.fetch_readme_url(repo['full_name']))
-        for repo
-        in formatted_json['repos']
-    ]
+    names_readme_urls_tuples = []
+    for repo in formatted_json['repos']:
+        repo_full_name = repo['full_name']
+        download_url = provider.fetch_readme_url(repo_full_name)
+
+        if download_url is not None:
+            names_readme_urls_tuples.append((repo_full_name, download_url))
 
     current_index = 1
     for (repo_full_name, download_url) in names_readme_urls_tuples:

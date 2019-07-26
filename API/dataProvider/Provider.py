@@ -4,6 +4,7 @@ from functools import reduce
 from API.dataProvider.AbstractDataProvider import AbstractDataProvider
 import os
 import sys
+from typing import Optional
 
 
 class Provider(AbstractDataProvider):
@@ -21,7 +22,7 @@ class Provider(AbstractDataProvider):
 
         return self.json_responses(repositories, queries)
 
-    def fetch_readme_url(self, repo_full_name):
+    def fetch_readme_url(self, repo_full_name) -> Optional[str]:
         base_url = 'https://api.github.com/repos'
         token = '3ee6385a3d50a70d4921021f440a46e2a494bde0'
         request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
@@ -34,7 +35,7 @@ class Provider(AbstractDataProvider):
             print(e, file=sys.stderr)
 
         response_json = response.json()
-        readme_url = response_json['download_url']
+        readme_url = response_json.get('download_url')
 
         return readme_url
 

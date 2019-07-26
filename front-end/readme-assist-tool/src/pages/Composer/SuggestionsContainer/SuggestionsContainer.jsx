@@ -4,13 +4,13 @@ import './SuggestionsContainer.css';
 
 import TypeSectionContainer from './TypeSectionContainer/TypeSectionContainer';
 import { sectionCodes } from '../../../common/SectionTypes';
-import swiftSections from '../../../common/swift_sections';
-import pythonSections from '../../../common/python_sections';
+import { getSections } from '../../../common/Languages';
 import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 
 function SuggestionsContainer({ onSectionToggle, language }) {
-  const sections = (language === 'swift') ? swiftSections : pythonSections;
+  const sections = getSections(language);
   const groupedSections = groupSectionsByFirstSectionCode(sections);
+
   return (
     <div className="SuggestionsContainer">
       <div className="TopSection">
