@@ -1,6 +1,5 @@
 /* eslint no-param-reassign: 0 */
-import * as swiftReadmesTrees from './readmes_trees.json';
-import * as pythonReadmesTrees from './python_trees.json';
+import { getTrees } from './Languages';
 
 function isEqual(sectionName, headingLevel, tree) {
   return (tree.name === sectionName && tree.level === headingLevel);
@@ -28,7 +27,7 @@ export function findSectionOccurencesInTree(section, tree, repoName) {
 }
 
 export function findChildren(sectionTitle, headingLevel, language) {
-  const treeDict = language === 'swift' ? swiftReadmesTrees.default : pythonReadmesTrees.default;
+  const treeDict = getTrees(language);
 
   const section = { title: sectionTitle, heading_level: headingLevel };
   const repos = Object.keys(treeDict);
@@ -50,7 +49,7 @@ export function sectionURL(section) {
 }
 
 export function numReposForLanguage(language) {
-  const treeDict = language === 'swift' ? swiftReadmesTrees.default : pythonReadmesTrees.default;
+  const treeDict = getTrees(language);
   return Object.keys(treeDict).length;
 }
 

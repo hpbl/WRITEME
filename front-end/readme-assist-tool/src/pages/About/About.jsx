@@ -2,6 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { getLanguages } from '../../common/Languages';
 import './About.css';
 
 const About = ({ numRepos }) => (
@@ -90,8 +91,13 @@ const About = ({ numRepos }) => (
         <h1>Supported languages</h1>
         <p>This tool is meant to work with every programming language that has projects on GitHub, but for now, tests are happening with the following languages:</p>
         <ul>
-          <li><Link to="composer/python">Python</Link></li>
-          <li><Link to="composer/swift">Swift</Link></li>
+          {
+            getLanguages().map(({ urlName, presentationName }) => (
+              <li key={urlName}>
+                <Link key={urlName} to={`composer/${urlName}`}>{presentationName}</Link>
+              </li>
+            ))
+          }
         </ul>
       </div>
     )}

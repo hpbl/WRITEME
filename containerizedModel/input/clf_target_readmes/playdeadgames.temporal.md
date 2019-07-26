@@ -19,7 +19,7 @@ Unity 5.0+
 Lasse Jon Fuglsang Pedersen <<lasse@playdead.com>>
 
 #### THANKS TO
-* Mikkel Gjøl (suggestions and feedback, noise distributions, motion blur tweaks)
+* Mikkel GjÃ¸l (suggestions and feedback, noise distributions, motion blur tweaks)
 * Tiago Sousa (neighbourhood clamping in SMAA 1tx; http://www.crytek.com/download/Sousa_Graphics_Gems_CryENGINE3.pdf)
 * Brian Karis (YCoCg clipping, neighbourhood rounding; http://advances.realtimerendering.com/s2014/epic/TemporalAA.pptx)
 * Timothy Lottes (weighing by unbiased luminance diff; http://www.youtube.com/watch?v=WzpLWzGvFK4&t=18m)
