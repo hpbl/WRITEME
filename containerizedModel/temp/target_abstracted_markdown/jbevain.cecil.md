@@ -1,0 +1,18 @@
+# Cecil
+
+Mono.Cecil is a library to generate and inspect programs and libraries in the ECMA CIL form.
+
+To put it simply, you can use Cecil to:
+
+  * Analyze .NET binaries using a simple and powerful object model, without having to load assemblies to use Reflection.
+  * Modify .NET binaries, add new metadata structures and alter the IL code.
+
+
+
+Cecil has been around since @abstr_number and is @abstr_hyperlink in the .NET community.
+
+Read about the Cecil development on the @abstr_hyperlink .
+
+To discuss Cecil, the best place is the @abstr_hyperlink Google Group.
+
+Cecil is a project under the benevolent umbrella of the @abstr_hyperlink .
