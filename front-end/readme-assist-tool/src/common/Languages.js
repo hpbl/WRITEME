@@ -7,6 +7,9 @@ import * as pythonReadmesTrees from './languages/python_trees.json';
 import csharpSections from './languages/csharp_sections';
 import * as csharpReadmesTrees from './languages/csharp_trees.json';
 
+import cppSections from './languages/cpp_sections';
+import * as cppReadmesTrees from './languages/cpp_trees.json';
+
 const supportedLanguages = {
   swift: {
     presentationName: 'Swift',
@@ -22,6 +25,11 @@ const supportedLanguages = {
     presentationName: 'C#',
     sections: csharpSections,
     trees: csharpReadmesTrees,
+  },
+  cpp: {
+    presentationName: 'C++',
+    sections: cppSections,
+    trees: cppReadmesTrees,
   },
 };
 
