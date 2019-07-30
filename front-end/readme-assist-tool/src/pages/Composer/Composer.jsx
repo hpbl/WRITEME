@@ -16,7 +16,7 @@ class Composer extends React.Component {
     };
 
     const { match: { params: { language } } } = props;
-    ReactGA.pageView(`composer/${language}`);
+    ReactGA.pageview(`composer/${language}`);
   }
 
   sectionIndex(section) {
