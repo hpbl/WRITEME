@@ -10,6 +10,7 @@ import * as serviceWorker from './serviceWorker';
 
 function App() {
   ReactGA.initialize('UA-144891941-1');
+  ReactGA.pageview('/');
 
   return (
     <HashRouter basename={`${process.env.PUBLIC_URL}/`} onUpdate={() => window.scrollTo(0, 0)}>
