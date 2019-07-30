@@ -1,12 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter, Switch, Route } from 'react-router-dom';
+import ReactGA from 'react-ga';
 import './index.css';
 import Composer from './pages/Composer/Composer';
 import About from './pages/About/About';
 import * as serviceWorker from './serviceWorker';
 
+
 function App() {
+  ReactGA.initialize('UA-144891941-1');
+
   return (
     <HashRouter basename={`${process.env.PUBLIC_URL}/`} onUpdate={() => window.scrollTo(0, 0)}>
       <Switch>

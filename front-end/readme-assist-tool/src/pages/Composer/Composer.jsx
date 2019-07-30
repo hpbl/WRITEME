@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './Composer.css';
+import ReactGA from 'react-ga';
 import About from '../About/About';
 import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 import READMEContainer from './READMEContainer/READMEContainer';
@@ -13,6 +14,9 @@ class Composer extends React.Component {
     this.state = {
       selectedSections: [],
     };
+
+    const { match: { params: { language } } } = props;
+    ReactGA.pageView(`composer/${language}`);
   }
 
   sectionIndex(section) {
