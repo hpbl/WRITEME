@@ -1,5 +1,5 @@
 import swiftSections from './languages/swift_sections';
-import * as swiftReadmesTrees from './languages/readmes_trees.json';
+import * as swiftReadmesTrees from './languages/swift_trees.json';
 
 import pythonSections from './languages/python_sections';
 import * as pythonReadmesTrees from './languages/python_trees.json';

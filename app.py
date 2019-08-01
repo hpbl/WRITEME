@@ -8,6 +8,7 @@ from containerizedModel.script.loading.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
 from API.readmeProvider import get_readme_provider
 from google.cloud import firestore
+import json
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -93,23 +94,23 @@ def get_language_repos(language):
 
 @app.route('/firebase/fetch')
 def fetch_sections():
-    users_ref = db.collection('user')
+    users_ref = db.collection('languages').document('swift')
     if users_ref:
-        return jsonify([user.to_dict() for user in users_ref.get()])
+        return users_ref.get().to_dict()
     else:
         return "nada"
 
 
-@app.route('/firebase/save')
-def save_section():
-    doc_ref = db.collection(u'users').document(u'alovelace')
-    doc_ref.set({
-        u'first': u'Ada',
-        u'last': u'Lovelace',
-        u'born': 1815
-    })
-
-    return db.collection(u'users').document(u'alovelace').get().to_dict()
+# @app.route('/firebase/save/trees/<language>')
+# def save_trees(language):
+#     with open(f'front-end/readme-assist-tool/src/common/languages/{language}_trees.json') as language_tree_file:
+#         language_tree_json = json.load(language_tree_file)
+#
+#         # TODO: check if language should be sanitized
+#         language_ref = db.collection('languages').document(language)
+#         language_ref.set({'tree': language_tree_json})
+#
+#     return jsonify([language.to_dict() for language in db.collection('languages').get()])
 
 
 if __name__ == "__main__":
