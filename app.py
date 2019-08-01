@@ -92,25 +92,15 @@ def get_language_repos(language):
     return jsonify(f'saved {current_index - 1} {language} READMEs')
 
 
-@app.route('/firebase/fetch')
-def fetch_sections():
-    users_ref = db.collection('languages').document('swift')
-    if users_ref:
-        return users_ref.get().to_dict()
+@app.route('/firebase/<language>')
+def fetch_tree(language):
+    users_ref = db.collection('languages').document(language)
+    language_document = users_ref.get().to_dict()
+
+    if language_document is not None:
+        return language_document
     else:
-        return "nada"
-
-
-# @app.route('/firebase/save/trees/<language>')
-# def save_trees(language):
-#     with open(f'front-end/readme-assist-tool/src/common/languages/{language}_trees.json') as language_tree_file:
-#         language_tree_json = json.load(language_tree_file)
-#
-#         # TODO: check if language should be sanitized
-#         language_ref = db.collection('languages').document(language)
-#         language_ref.set({'tree': language_tree_json})
-#
-#     return jsonify([language.to_dict() for language in db.collection('languages').get()])
+        return 'No such document!'
 
 
 if __name__ == "__main__":
