@@ -11,3 +11,4 @@ lxml
 flask
 requests
 joblib
+google-cloud-firestore

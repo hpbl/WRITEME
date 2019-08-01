@@ -7,6 +7,7 @@ from containerizedModel.script.classifier.classifier_classify_target import clas
 from containerizedModel.script.loading.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
 from API.readmeProvider import get_readme_provider
+from google.cloud import firestore
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -15,6 +16,8 @@ sys.path.append('containerizedModel')
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
+
+db = firestore.Client()
 
 
 @app.route('/')
@@ -86,6 +89,27 @@ def get_language_repos(language):
         current_index += 1
 
     return jsonify(f'saved {current_index - 1} {language} READMEs')
+
+
+@app.route('/firebase/fetch')
+def fetch_sections():
+    users_ref = db.collection('user')
+    if users_ref:
+        return jsonify([user.to_dict() for user in users_ref.get()])
+    else:
+        return "nada"
+
+
+@app.route('/firebase/save')
+def save_section():
+    doc_ref = db.collection(u'users').document(u'alovelace')
+    doc_ref.set({
+        u'first': u'Ada',
+        u'last': u'Lovelace',
+        u'born': 1815
+    })
+
+    return db.collection(u'users').document(u'alovelace').get().to_dict()
 
 
 if __name__ == "__main__":

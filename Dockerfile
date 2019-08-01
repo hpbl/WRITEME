@@ -1,18 +1,19 @@
 FROM fnndsc/ubuntu-python3
 MAINTAINER Hilton Pintor
 
-#set envionment variables
-# ENV PYTHONUNBUFFERED 1
-
 # run this before copying requirements for cache efficiency
 RUN pip install --upgrade pip
 
-#set work directory early so remaining paths can be relative
+# set work directory early so remaining paths can be relative
 WORKDIR /app
 
-# Adding requirements file to current directory
+# adding requirements file to current directory
 # just this file first to cache the pip install step when code changes
 COPY requirements.txt .
+
+# set envionment variables
+ENV LANG C.UTF-8
+ENV GOOGLE_APPLICATION_CREDENTIALS "API/database/firebase-adminsdk.json"
 
 #install dependencies
 RUN pip install -r requirements.txt
