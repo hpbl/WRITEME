@@ -80,8 +80,13 @@ const About = ({ numRepos }) => (
             [2]
           </a>
         </sup>
-        &nbsp;we classify the sections of READMEs from the&nbsp;
-        {numRepos}
+        &nbsp;we classify the sections of READMEs from the
+        { numRepos ? (
+          <>
+            &nbsp;
+            <strong>{numRepos}</strong>
+          </>
+        ) : null }
         &nbsp;most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
       </p>
     </div>
