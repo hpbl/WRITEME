@@ -24,7 +24,7 @@ class Provider(AbstractDataProvider):
 
     def fetch_readme_url(self, repo_full_name) -> Optional[str]:
         base_url = 'https://api.github.com/repos'
-        token = '3ee6385a3d50a70d4921021f440a46e2a494bde0'
+        token = os.environ['GITHUB_TOKEN']
         request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
 
         try:
