@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { getLanguages } from '../../common/Languages';
 import './About.css';
 
-const About = ({ numRepos }) => (
+const About = ({ numRepos, language }) => (
   <div className="About">
     <div id="titleSection">
       <h1>Data Driven README</h1>
@@ -87,7 +87,9 @@ const About = ({ numRepos }) => (
             <strong>{numRepos}</strong>
           </>
         ) : null }
-        &nbsp;most starred repositories written in the programming language of your choice, so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
+        &nbsp;most starred repositories written in&nbsp;
+        { `${language},` }
+        &nbsp;so they can be grouped according to its content and heading level, and passed as suggestions so you can select the ones that apply to your project, knowing how often they are used by others.
       </p>
     </div>
 
@@ -111,10 +113,12 @@ const About = ({ numRepos }) => (
 
 About.propTypes = {
   numRepos: PropTypes.string,
+  language: PropTypes.string,
 };
 
 About.defaultProps = {
   numRepos: '',
+  language: 'the programming language of your choice',
 };
 
 export default About;
