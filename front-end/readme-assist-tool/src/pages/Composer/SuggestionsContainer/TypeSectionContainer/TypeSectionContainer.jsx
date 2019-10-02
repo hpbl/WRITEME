@@ -104,7 +104,8 @@ class TypeSectionContainer extends React.Component {
 
     return (
       <div className="TypeSectionContainer">
-        <code>
+        <code className="tooltip">
+          <span className="tooltiptext">Tooltip text</span>
           type:
           {' '}
           {sectionTypes[sectionCode]}
