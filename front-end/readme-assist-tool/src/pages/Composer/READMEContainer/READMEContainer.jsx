@@ -50,6 +50,7 @@ function markdownHeaderToHTML(section) {
     <div key={key}>
       {header}
       {exampleLink}
+      <br/>
     </div>
   );
 }
