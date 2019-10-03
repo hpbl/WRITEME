@@ -6,6 +6,15 @@
   align-items: flex-start;
   padding-left: 20px;
   padding-right: 20px;
+  position: relative;
+}
+
+.SuggestionsContainer .LanguageContainer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.25em 1em;
+  color: #ccc;
 }
 
 .TopSection {

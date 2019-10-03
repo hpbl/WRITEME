@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './SuggestionsContainer.css';
 
@@ -10,9 +10,17 @@ import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 function SuggestionsContainer({ onSectionToggle, language }) {
   const sections = getSections(language);
   const groupedSections = groupSectionsByFirstSectionCode(sections);
+  const containerRef = useRef();
+
+  useEffect(() => {
+    if (language) {
+      containerRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [language]);
 
   return (
-    <div className="SuggestionsContainer">
+    <div className="SuggestionsContainer" ref={containerRef}>
+      <div className="LanguageContainer">{language}</div>
       <div className="TopSection">
         <h1># Project Name</h1>
         <p>&gt; tagline</p>
