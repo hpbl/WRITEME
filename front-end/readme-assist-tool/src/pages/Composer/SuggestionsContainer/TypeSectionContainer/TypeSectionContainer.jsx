@@ -105,10 +105,10 @@ class TypeSectionContainer extends React.Component {
     return (
       <div className="TypeSectionContainer">
         <code className="tooltip">
-          <span className="tooltiptext">Tooltip text</span>
+          <span className="tooltiptext">{sectionTypes[sectionCode][1]}</span>
           type:
           {' '}
-          {sectionTypes[sectionCode]}
+          {sectionTypes[sectionCode][0]}
         </code>
         {
           this.sectionsToParagraph(popularOccurences, headingLevel)
