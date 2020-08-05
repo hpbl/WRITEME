@@ -98,4 +98,4 @@ Currently the API is static, it only serves pre-fetched Swift READMEs. The follo
 - Lucas Figueiredo [@lsf](mailto:lsf@cin.ufpe.br).
 - Ricardo Barioni [@rrb](mailto:rrb@cin.ufpe.br).
 
-Powered by [Voxar labs](cin.ufpe.br/~voxarlabs).
+Powered by [Voxar labs](https://cin.ufpe.br/~voxarlabs).
