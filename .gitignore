@@ -61,3 +61,5 @@ docs/_build/
 target/
 
 \.DS_Store
+
+containerizedModel/input/targetREADMEs

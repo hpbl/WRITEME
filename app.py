@@ -8,6 +8,8 @@ from containerizedModel.script.loading.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
 from API.readmeProvider import get_readme_provider
 
+import multiprocessing
+
 # retrieving model file (joblib.load) requires this to work
 import sys
 sys.path.append('containerizedModel')
@@ -79,13 +81,28 @@ def get_language_repos(language):
         if download_url is not None:
             names_readme_urls_tuples.append((repo_full_name, download_url))
 
-    current_index = 1
-    for (repo_full_name, download_url) in names_readme_urls_tuples:
-        provider.download_readme(download_url, repo_full_name)
-        print(f'saved file: {current_index}', file=sys.stderr)
-        current_index += 1
+    current_index = multiprocessing.Value('i', 0)
+    jobs = []
 
-    return jsonify(f'saved {current_index - 1} {language} READMEs')
+    current_index.value = 1
+    for (repo_full_name, download_url) in names_readme_urls_tuples:
+        p = multiprocessing.Process(
+            target=multicore_download, args=(provider, download_url, repo_full_name, current_index)
+        )
+        jobs.append(p)
+        p.start()
+
+    for proc in jobs:
+        proc.join()
+    print(current_index.value)
+
+    return jsonify(f'saved {current_index.value - 1} {language} READMEs')
+
+
+def multicore_download(provider, download_url, repo_full_name, current_index):
+    provider.download_readme(download_url, repo_full_name)
+    print(f'saved file: {current_index}', file=sys.stderr)
+    current_index.value += 1
 
 
 if __name__ == "__main__":
