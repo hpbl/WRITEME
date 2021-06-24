@@ -66,7 +66,7 @@ def readme_trees():
 def get_language_repos(language):
     language_query = f'language:{language}'
     sort = "stars"
-    number_repos = 1
+    number_repos = 300
 
     provider = get_provider(DEBUG)
     formatted_json = provider.fetch_repositories(language_query, sort, number_repos)
