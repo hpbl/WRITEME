@@ -1,8 +1,14 @@
-FROM fnndsc/ubuntu-python3
+FROM python:3.8
 MAINTAINER Hilton Pintor
 
 #set envionment variables
-# ENV PYTHONUNBUFFERED 1
+# This prevents Python from writing out pyc files
+ENV PYTHONDONTWRITEBYTECODE 1
+
+# This keeps Python from buffering stdin/stdout
+ENV PYTHONUNBUFFERED 1
+
+ENV PYTHONPATH="$PYTHONPATH:/app"
 
 # run this before copying requirements for cache efficiency
 RUN pip install --upgrade pip
@@ -16,11 +22,12 @@ COPY requirements.txt .
 
 #install dependencies
 RUN pip install -r requirements.txt
-RUN python3 -c "import nltk; nltk.download('words')"
+CMD ["init.py"]
 
 # copy code itself from context to image
 COPY . .
 
+EXPOSE 5000
+
 # start the flask webserver
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+CMD [ "python", "app.py"]

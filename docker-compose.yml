@@ -3,8 +3,8 @@ services:
   backend:
     build: .
     volumes:
-      - '$PWD:/app'
+      - './:/app'
     ports:
-      - "5000:5000"
+      - "$HTTP_PORT:5000"
     env_file:
       - .env
