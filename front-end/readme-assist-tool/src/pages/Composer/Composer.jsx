@@ -15,8 +15,19 @@ class Composer extends React.Component {
       selectedSections: [],
     };
 
-    const { match: { params: { language } } } = props;
+    const {
+      match: {
+        params: { language },
+      },
+    } = props;
+
+    this.divSuggestions = React.createRef();
+
     ReactGA.pageview(`composer/${language}`);
+  }
+
+  componentDidMount() {
+    window.scrollTo(0, this.divSuggestions.current.offsetTop);
   }
 
   sectionIndex(section) {
@@ -34,20 +45,22 @@ class Composer extends React.Component {
       selectedSections.splice(sectionIndex, 1);
     }
 
-    this.setState({
-      selectedSections,
-    });
+    this.setState({ selectedSections });
   }
 
   render() {
     const { selectedSections } = this.state;
-    const { match: { params: { language } } } = this.props;
+    const {
+      match: {
+        params: { language },
+      },
+    } = this.props;
     const numRepos = numReposForLanguage(language);
 
     return (
       <div>
         <About numRepos={`${numRepos}`} />
-        <div className="Composer">
+        <div className="Composer" ref={this.divSuggestions}>
           <SuggestionsContainer
             language={language}
             onSectionToggle={section => this.toggleSection(section)}
