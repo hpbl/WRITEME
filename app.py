@@ -3,8 +3,8 @@ from API.dataProvider import get_provider
 from API.sectionProvider import get_section_provider
 from API.sectionAnalyzer.SectionAnalyzer import group_sections_by_level
 from API.config import DEBUG
-from containerizedModel.script.classifier.classifier_classify_target import classify_sections
-from containerizedModel.script.loading.load_target_sections import load_sections
+from classifier.script.classifier_classify_target import classify_sections
+from classifier.script.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
 from API.readmeProvider import get_readme_provider
 
@@ -43,22 +43,22 @@ def classify():
 @app.route('/sections')
 def sections():
     provider = get_section_provider()
-    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    sections = provider.fetch_classified_sections('classifier/output/output_section_codes.csv')
     return jsonify(sections)
 
 
 @app.route('/sections/level')
 def sections_by_level():
     provider = get_section_provider()
-    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    sections = provider.fetch_classified_sections('classifier/output/output_section_codes.csv')
     grouped_sections = group_sections_by_level(sections)
     return jsonify(grouped_sections)
 
 
-@app.route('/tree')
-def readme_trees():
+@app.route('/tree/<language>')
+def readme_trees(language):
     provider = get_readme_provider()
-    trees = provider.fetch_readmes_trees('containerizedModel/input/clf_target_readmes')
+    trees = provider.fetch_readmes_trees(f'classifier/input/dev_and_eval_readmes/{language}')
     return jsonify(trees)
 
 
@@ -80,9 +80,11 @@ def get_language_repos(language):
             names_readme_urls_tuples.append((repo_full_name, download_url))
 
     current_index = 1
+    provider.clear_readmes(language)
     for (repo_full_name, download_url) in names_readme_urls_tuples:
-        provider.download_readme(download_url, repo_full_name)
-        print(f'saved file: {current_index}', file=sys.stderr)
+        provider.download_readme(download_url, repo_full_name, language)
+        return jsonify(DEBUG)
+        print(f'saved file {current_index}: {repo_full_name}', file=sys.stderr)
         current_index += 1
 
     return jsonify(f'saved {current_index - 1} {language} READMEs')

@@ -10,9 +10,6 @@ ENV PYTHONUNBUFFERED 1
 
 ENV PYTHONPATH="$PYTHONPATH:/app"
 
-# run this before copying requirements for cache efficiency
-RUN pip install --upgrade pip
-
 #set work directory early so remaining paths can be relative
 WORKDIR /app
 
@@ -26,6 +23,12 @@ CMD ["init.py"]
 
 # copy code itself from context to image
 COPY . .
+RUN mkdir -p /app/classifier/temp/abstracted_markdown
+RUN mkdir -p /app/classifier/temp/target_abstracted_markdown
+RUN mkdir -p /app/classifier/log
+RUN mkdir -p /app/classifier/output
+RUN mkdir -p /app/classifier/input/clf_target_readmes
+RUN mkdir -p /app/classifier/input/dev_and_eval_readmes
 
 EXPOSE 5000
 

@@ -1,5 +1,5 @@
 from typing import List, Dict
-import markdown2 as markdown
+import markdown
 
 
 def generate_section_tree(markdown_content: str) -> List[Dict]:

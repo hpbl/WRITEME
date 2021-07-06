@@ -5,6 +5,7 @@ html2text==2020.1.16
 joblib==0.16.0
 lxml==4.6.2
 markdown2==2.3.9
+markdown
 nltk==3.5
 numpy==1.19.1
 pandas==1.1.0
@@ -18,8 +19,7 @@ sklearn==0.0
 soupsieve==2.0.1
 threadpoolctl==2.1.0
 tqdm==4.48.2
+python-dotenv
 flask
 requests
 joblib
-pypiwin32
-python-dotenv
