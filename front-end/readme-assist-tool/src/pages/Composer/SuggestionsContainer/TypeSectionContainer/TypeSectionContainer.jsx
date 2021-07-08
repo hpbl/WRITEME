@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './TypeSectionContainer.css';
 import { sectionTypes } from '../../../../common/SectionTypes';
-import { groupSectionsByHeadingLevel, sortByOccurence, computeFrequencyByLevel } from '../../../../common/SectionParser';
-import { findChildren } from '../../../../common/ReadmeParser';
+import { groupSectionsByHeadingLevel, sortByOccurence } from '../../../../common/SectionParser';
 import isEquivalent from '../../../../common/Extensions';
+import Section from './Section';
 
 class TypeSectionContainer extends React.Component {
   constructor(props) {
@@ -13,6 +13,13 @@ class TypeSectionContainer extends React.Component {
       headingLevel: 2,
       selectedSections: [],
     };
+
+    this.getIsSectionSelected = this.getIsSectionSelected.bind(this);
+    this.toggleSection = this.toggleSection.bind(this);
+  }
+
+  getIsSectionSelected(section) {
+    return this.sectionIndex(section) >= 0;
   }
 
   sectionIndex(section) {
@@ -20,6 +27,7 @@ class TypeSectionContainer extends React.Component {
     return selectedSections.findIndex(selectedSection => (
       isEquivalent(section, selectedSection)));
   }
+
 
   toggleSection(toggledSection) {
     const { selectedSections } = this.state;
@@ -40,56 +48,21 @@ class TypeSectionContainer extends React.Component {
   }
 
   sectionsToParagraph(sections, headingLevel) {
+    const { language } = this.props;
     return sections.map((section) => {
       const newSection = { sectionTitle: section[0], headingLevel, readmes: section[2] };
       const occurence = section[1];
-      return this.renderSection(newSection, occurence);
+      return (
+        <Section
+          key={`${newSection.sectionTitle}-${occurence}`}
+          language={language}
+          section={newSection}
+          occurence={occurence}
+          getIsSectionSelected={this.getIsSectionSelected}
+          toggleSection={this.toggleSection}
+        />
+      );
     });
-  }
-
-  renderSection(section, occurence) {
-    const isSelected = this.sectionIndex(section) !== -1;
-
-    const className = isSelected ? 'selected' : 'unselected';
-    const heading = '#'.repeat(section.headingLevel);
-    let desiredChildren = [];
-    const desiredChildrenLevel = section.headingLevel + 1;
-
-    const { language } = this.props;
-
-    if (isSelected) {
-      const children = findChildren(section.sectionTitle, section.headingLevel, language)
-        .flat(Infinity);
-      const groupedChildren = computeFrequencyByLevel(children);
-      desiredChildren = groupedChildren[desiredChildrenLevel - 1]; // starts on 0
-    }
-
-    return (
-      <div className="section" key={`${section.sectionTitle}-${section[1]}`}>
-        <h2 className={className}>
-          <button onClick={() => this.toggleSection(section)} type="button">
-            {`${heading} ${section.sectionTitle} (${occurence})`}
-          </button>
-        </h2>
-        {isSelected
-          && (
-          <div className="children">
-            {
-              desiredChildren
-                .map((child) => {
-                  const childSection = {
-                    sectionTitle: child[0],
-                    headingLevel: desiredChildrenLevel,
-                    readmes: child[2],
-                  };
-                  return this.renderSection(childSection, child[1]);
-                })
-            }
-          </div>
-          )
-        }
-      </div>
-    );
   }
 
   render() {
@@ -101,7 +74,6 @@ class TypeSectionContainer extends React.Component {
     const sortedOccurences = sortByOccurence(desiredLevelSections);
 
     const popularOccurences = sortedOccurences.filter(section => section[1] > 1);
-
     return (
       <div className="TypeSectionContainer">
         <code>
