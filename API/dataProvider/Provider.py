@@ -54,7 +54,7 @@ class Provider(AbstractDataProvider):
         response = rq.get(download_url)
 
         file_name = repo_full_name.replace('/', '.')
-        folder_path = f'{os.getcwd()}/classifier/input/dev_and_eval_readmes/{language}'
+        folder_path = f'{os.getcwd()}/classifier/input/clf_target_readmes/{language}'
 
         if not os.path.exists(folder_path):
             os.mkdir(folder_path)

@@ -3,6 +3,7 @@ from API.dataProvider import get_provider
 from API.sectionProvider import get_section_provider
 from API.sectionAnalyzer.SectionAnalyzer import group_sections_by_level
 from API.config import DEBUG
+from API.dataProvider.Provider import clear_readmes
 from classifier.script.classifier_classify_target import classify_sections
 from classifier.script.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
@@ -80,10 +81,9 @@ def get_language_repos(language):
             names_readme_urls_tuples.append((repo_full_name, download_url))
 
     current_index = 1
-    provider.clear_readmes(language)
+    # clear_readmes(language)
     for (repo_full_name, download_url) in names_readme_urls_tuples:
         provider.download_readme(download_url, repo_full_name, language)
-        return jsonify(DEBUG)
         print(f'saved file {current_index}: {repo_full_name}', file=sys.stderr)
         current_index += 1
 

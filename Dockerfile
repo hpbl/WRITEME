@@ -15,14 +15,13 @@ WORKDIR /app
 
 # Adding requirements file to current directory
 # just this file first to cache the pip install step when code changes
-COPY requirements.txt .
+COPY requirements.txt ../requirements.txt
 
 #install dependencies
-RUN pip install -r requirements.txt
-CMD ["init.py"]
+RUN pip install -r ../requirements.txt
+RUN python3 init.py
 
-# copy code itself from context to image
-COPY . .
+RUN mkdir -p /app/classifier/temp
 RUN mkdir -p /app/classifier/temp/abstracted_markdown
 RUN mkdir -p /app/classifier/temp/target_abstracted_markdown
 RUN mkdir -p /app/classifier/log
