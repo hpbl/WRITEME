@@ -1,7 +1,7 @@
 numpy
 pandas
 scipy
-scikit-learn==0.20
+scikit-learn==0.22
 markdown
 markdown2
 bs4
