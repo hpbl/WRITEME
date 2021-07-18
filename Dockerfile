@@ -13,10 +13,11 @@ WORKDIR /app
 # Adding requirements file to current directory
 # just this file first to cache the pip install step when code changes
 COPY requirements.txt .
+COPY init.py .
 
 #install dependencies
 RUN pip install -r requirements.txt
-RUN python3 -c "import nltk; nltk.download('words')"
+RUN python3 init.py
 
 # copy code itself from context to image
 COPY . .
