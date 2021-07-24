@@ -1,0 +1,19 @@
+GET http://localhost:5000/sections
+Accept: application/json
+
+###
+
+GET http://localhost:5000/sections/level
+Accept: application/json
+
+###
+
+GET http://localhost:5000/tree
+Accept: application/json
+
+###
+
+GET http://localhost:5000/elixir
+Accept: application/json
+
+###
