@@ -17,3 +17,8 @@ GET http://localhost:5000/elixir
 Accept: application/json
 
 ###
+
+GET http://localhost:5000/classify
+Accept: application/json
+
+###

@@ -63,3 +63,12 @@ target/
 \.DS_Store
 
 .env
+
+containerizedModel/log
+!containerizedModel/log/.empty
+
+containerizedModel/input/targetREADMEs
+!containerizedModel/input/targetREADMEs/.empty
+
+containerizedModel/output
+!containerizedModel/output/.empty
