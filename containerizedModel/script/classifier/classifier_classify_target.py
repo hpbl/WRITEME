@@ -23,7 +23,7 @@ def find_unique(csv_input_line):
     l.sort()
     return l
 
-def classify_sections():
+def classify_sections(language=''):
     start = time.time()
     
     config = configparser.ConfigParser()

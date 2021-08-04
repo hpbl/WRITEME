@@ -66,9 +66,11 @@ target/
 
 containerizedModel/log
 !containerizedModel/log/.empty
-
 containerizedModel/input/targetREADMEs
 !containerizedModel/input/targetREADMEs/.empty
-
+containerizedModel/input/clf_target_readmes
+!containerizedModel/input/clf_target_readmes/.empty
 containerizedModel/output
 !containerizedModel/output/.empty
+containerizedModel/temp/target_abstracted_markdown
+!containerizedModel/temp/target_abstracted_markdown/.empty

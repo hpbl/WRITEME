@@ -3,6 +3,7 @@ from API.dataProvider.MockProvider import MockProvider
 
 
 def get_provider(debug):
+    return Provider()
     if debug:
         return MockProvider()
     else:

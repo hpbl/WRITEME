@@ -3,7 +3,7 @@ import abc
 
 class AbstractDataProvider(metaclass=abc.ABCMeta):
     @abc.abstractmethod
-    def fetch_repositories(self, language_query, sort, number_repos):
+    def fetch_repositories(self, language_query, sort, number_repos, language):
         """Fetch a number of repositories acording that match the query parameters.
             Pagination may occur.
 
@@ -12,6 +12,7 @@ class AbstractDataProvider(metaclass=abc.ABCMeta):
                 - parameters: Query parameters (ex: "language:swift")
                 - sort: Parameter to sort the query (ex: "stars")
                 - numResults: Number of repositories wanted
+                - language: Language folder
 
             Return:
                 A list with the result of each request.

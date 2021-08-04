@@ -39,11 +39,11 @@ class Provider(AbstractDataProvider):
 
         return readme_url
 
-    def download_readme(self, download_url, repo_full_name):
+    def download_readme(self, download_url, repo_full_name, language=''):
         response = rq.get(download_url)
 
         file_name = repo_full_name.replace('/', '.')
-        folder_path = f'{os.getcwd()}/containerizedModel/input/targetREADMEs'
+        folder_path = f'{os.getcwd()}/containerizedModel/input/clf_target_readmes/{language}'
 
         if not os.path.exists(folder_path):
             os.mkdir(folder_path)

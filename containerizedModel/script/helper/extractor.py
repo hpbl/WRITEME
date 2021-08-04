@@ -97,7 +97,7 @@ def extract_section_from_abstracted_files(temp_abstracted_markdown_file_dir, db_
             # logging.debug(curr_section_content)
             # logging.debug('After markdown removal')
             # logging.debug(curr_section_content_w_o_tags)
-            headings.set_value(i,'content_text_w_o_tags',curr_section_content_w_o_tags)
+            headings.at[i,'content_text_w_o_tags'] = curr_section_content_w_o_tags
         
         df_to_save = headings[['file_id','section_id','content_text_w_o_tags']]
         df_to_save.to_sql(name=content_table, con=conn, if_exists='replace', index=False)
@@ -199,7 +199,7 @@ def extract_section_from_abstracted_files_v2(temp_abstracted_markdown_file_dir, 
             
             curr_section_content = ' '.join(curr_section_content_lines)
             curr_section_content_w_o_tags = extract_text_from_markdown_snippet(curr_section_content)
-            headings.set_value(i,'content_text_w_o_tags',curr_section_content_w_o_tags)
+            headings.at[i,'content_text_w_o_tags'] = curr_section_content_w_o_tags
         
         df_to_save = headings[['file_id','section_id','content_text_w_o_tags']]
         # Use append when saving since table is already emptied at the beginning

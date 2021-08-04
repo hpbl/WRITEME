@@ -12,13 +12,20 @@ GET http://localhost:5000/tree
 Accept: application/json
 
 ###
+# get language readmes
 
-GET http://localhost:5000/elixir
+GET http://localhost:5000/c%23
 Accept: application/json
 
 ###
 
-GET http://localhost:5000/classify
+GET http://localhost:5000/load/c%23
 Accept: application/json
 
 ###
+
+GET http://localhost:5000/classify/c%23
+Accept: application/json
+
+###
+

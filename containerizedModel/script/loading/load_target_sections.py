@@ -13,12 +13,15 @@ import pandas
 from containerizedModel.script.helper.extractor import *
 
 
-def load_sections():
+def load_sections(language=''):
     config = configparser.ConfigParser()
     config.read('containerizedModel/config/config.cfg')
     db_filename = config['DEFAULT']['db_filename']
     readme_file_dir = config['DEFAULT']['target_readme_file_dir']
     temp_abstracted_markdown_file_dir = config['DEFAULT']['temp_target_abstracted_markdown_file_dir']
+
+    if language:
+        readme_file_dir = f'{readme_file_dir}{language}/'
     
     log_filename = 'containerizedModel/log/load_target_sections.log'
     logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
