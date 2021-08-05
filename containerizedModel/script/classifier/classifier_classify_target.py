@@ -33,8 +33,8 @@ def classify_sections(language=''):
     vectorizer = joblib.load(config['DEFAULT']['vectorizer_filename']) 
     binarizer = joblib.load(config['DEFAULT']['binarizer_filename']) 
     classifier = joblib.load(config['DEFAULT']['model_filename'])
-    output_section_code_filename = config['DEFAULT']['output_section_code_filename']
-    output_file_codes_filename = config['DEFAULT']['output_file_codes_filename']
+    output_section_code_filename = config['DEFAULT']['output_section_code_filename'].replace(".csv", f'_{language}.csv')
+    output_file_codes_filename = config['DEFAULT']['output_file_codes_filename'].replace(".csv", f'_{language}.csv')
     
     log_filename = 'containerizedModel/log/classifier_classify_target.log'    
     logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)

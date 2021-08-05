@@ -40,25 +40,25 @@ def classify(language=''):
     return "classified readmes"
 
 
-@app.route('/sections')
-def sections():
+@app.route('/sections/<language>')
+def sections(language=''):
     provider = get_section_provider()
-    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    sections = provider.fetch_classified_sections(f'containerizedModel/output/output_section_codes_{language}.csv')
     return jsonify(sections)
 
 
-@app.route('/sections/level')
-def sections_by_level():
+@app.route('/sections/level/<language>')
+def sections_by_level(language=''):
     provider = get_section_provider()
-    sections = provider.fetch_classified_sections('containerizedModel/output/output_section_codes.csv')
+    sections = provider.fetch_classified_sections(f'containerizedModel/output/output_section_codes_{language}.csv')
     grouped_sections = group_sections_by_level(sections)
     return jsonify(grouped_sections)
 
 
-@app.route('/tree')
-def readme_trees():
+@app.route('/tree/<language>')
+def readme_trees(language=''):
     provider = get_readme_provider()
-    trees = provider.fetch_readmes_trees('containerizedModel/input/clf_target_readmes')
+    trees = provider.fetch_readmes_trees(f'containerizedModel/input/clf_target_readmes/{language.lower()}')
     return jsonify(trees)
 
 
@@ -66,8 +66,8 @@ def readme_trees():
 def get_language_repos(language):
     language_query = f'language:{language}'
     sort = "stars"
-    number_repos = 3
-    print(number_repos)
+    number_repos = 50
+
     provider = get_provider(DEBUG)
     formatted_json = provider.fetch_repositories(language_query, sort, number_repos)
 

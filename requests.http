@@ -1,4 +1,4 @@
-GET http://localhost:5000/sections
+GET http://localhost:5000/sections/css
 Accept: application/json
 
 ###
@@ -8,23 +8,23 @@ Accept: application/json
 
 ###
 
-GET http://localhost:5000/tree
+GET http://localhost:5000/tree/css
 Accept: application/json
 
 ###
 # get language readmes
 
-GET http://localhost:5000/c%23
+GET http://localhost:5000/css
 Accept: application/json
 
 ###
 
-GET http://localhost:5000/load/c%23
+GET http://localhost:5000/load/css
 Accept: application/json
 
 ###
 
-GET http://localhost:5000/classify/c%23
+GET http://localhost:5000/classify/css
 Accept: application/json
 
 ###
