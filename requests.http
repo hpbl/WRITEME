@@ -29,7 +29,7 @@ Accept: application/json
 
 ###
 
-GET http://localhost:5000/typescript
+GET http://localhost:5000/Jupyter Notebook
 
 Accept: application/json
 

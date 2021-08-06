@@ -2,6 +2,7 @@ import configparser
 from flask import jsonify
 import math
 import logging
+import datetime
 import sqlite3
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
@@ -134,8 +135,16 @@ class Provider(AbstractDataProvider):
                 conn.commit()
 
             saved_readmes = self.get_language_repos(language)
+            logging.info(f'>>>Saved {language} READMEs')
+            if saved_readmes > 0 and not language_saved:
+                c.execute(f'INSERT INTO languages_dates (language, processing) VALUES ("{language}", true)')
+                self.change_flag(c, False, 'default')
+            conn.close()
+
             load_sections(language)
+            logging.info(f'>>>Loaded {language} sections')
             classify_sections(language)
+            logging.info(f'>>>Classified {language} sections')
 
             sections = get_section_provider().fetch_classified_sections(f'containerizedModel/output/output_section_codes_{language}.csv')
             trees = get_readme_provider().fetch_readmes_trees(f'containerizedModel/input/clf_target_readmes/{language.lower()}')
@@ -146,6 +155,8 @@ class Provider(AbstractDataProvider):
             logging.exception(e)
             response = {'status': False, 'message': str(e)}
         finally:
+            conn = sqlite3.connect(db_filename)
+            c = conn.cursor()
             # saving processing FALSE flag
             language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
             if language_saved:
@@ -158,7 +169,7 @@ class Provider(AbstractDataProvider):
             return response
 
     def change_flag(self, c, value, language):
-        return c.execute(f'UPDATE languages_dates SET processing={1 if value else 0} WHERE language = \'{language}\'')
+        return c.execute(f'UPDATE languages_dates SET processing={1 if value else 0}, last_execution_date="{None if language=="default" else datetime.datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
 
     def write_json(self, filename, data):
         file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
