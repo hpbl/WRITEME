@@ -1,4 +1,5 @@
 import configparser
+from flask import jsonify
 import math
 import logging
 import sqlite3
@@ -7,6 +8,8 @@ from containerizedModel.script.loading.load_target_sections import load_sections
 import requests as rq
 from functools import reduce
 from API.dataProvider.AbstractDataProvider import AbstractDataProvider
+from API.sectionProvider import get_section_provider
+from API.readmeProvider import get_readme_provider
 import os
 import sys
 from typing import Optional
@@ -133,6 +136,12 @@ class Provider(AbstractDataProvider):
             saved_readmes = self.get_language_repos(language)
             load_sections(language)
             classify_sections(language)
+
+            sections = get_section_provider().fetch_classified_sections(f'containerizedModel/output/output_section_codes_{language}.csv')
+            trees = get_readme_provider().fetch_readmes_trees(f'containerizedModel/input/clf_target_readmes/{language.lower()}')
+
+            self.write_json(f'sections_{language}.json', jsonify(sections).get_data(as_text=True))
+            self.write_json(f'trees_{language}.json', jsonify(trees).get_data(as_text=True))
         except Exception as e:
             logging.exception(e)
             response = {'status': False, 'message': str(e)}
@@ -148,6 +157,13 @@ class Provider(AbstractDataProvider):
             conn.close()
             return response
 
-
     def change_flag(self, c, value, language):
         return c.execute(f'UPDATE languages_dates SET processing={1 if value else 0} WHERE language = \'{language}\'')
+
+    def write_json(self, filename, data):
+        file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
+        if os.path.exists(file_path):
+            os.remove(filename)
+        file = open(f'{file_path}', "w")
+        file.write(data)
+        file.close()

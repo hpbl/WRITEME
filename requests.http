@@ -29,7 +29,8 @@ Accept: application/json
 
 ###
 
-GET http://localhost:5000/javascript
+GET http://localhost:5000/typescript
+
 Accept: application/json
 
 ###
