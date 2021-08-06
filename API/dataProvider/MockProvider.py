@@ -13,3 +13,9 @@ class MockProvider(AbstractDataProvider):
 
     def download_readme(self, download_url, repo_full_name):
         return
+
+    def get_language_repos(self, language):
+        return
+
+    def generate(self, language):
+        return

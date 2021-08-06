@@ -1,4 +1,9 @@
+import configparser
 import math
+import logging
+import sqlite3
+from containerizedModel.script.classifier.classifier_classify_target import classify_sections
+from containerizedModel.script.loading.load_target_sections import load_sections
 import requests as rq
 from functools import reduce
 from API.dataProvider.AbstractDataProvider import AbstractDataProvider
@@ -77,3 +82,72 @@ class Provider(AbstractDataProvider):
         json["repos"] = reduce(lambda accum, response: accum + response["items"], responses, [])
         json["urls"] = urls
         return json
+
+    def get_language_repos(self, language):
+        language_query = f'language:{language}'
+        sort = "stars"
+        number_repos = 3
+
+        formatted_json = self.fetch_repositories(language_query, sort, number_repos)
+
+        names_readme_urls_tuples = []
+        for repo in formatted_json['repos']:
+            repo_full_name = repo['full_name']
+            download_url = self.fetch_readme_url(repo_full_name)
+
+            if download_url is not None:
+                names_readme_urls_tuples.append((repo_full_name, download_url))
+        current_index = 1
+        for (repo_full_name, download_url) in names_readme_urls_tuples:
+            self.download_readme(download_url, repo_full_name, language.lower())
+            current_index += 1
+
+        return current_index
+
+    def generate(self, language):
+        log_filename = 'containerizedModel/log/generate.log'
+        logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
+        logging.getLogger().addHandler(logging.StreamHandler())
+        logging.info(f'generating {language} json files')
+
+        config = configparser.ConfigParser()
+        config.read('containerizedModel/config/config.cfg')
+        db_filename = config['DEFAULT']['db_filename']
+        conn = sqlite3.connect(db_filename)
+        c = conn.cursor()
+        response = {'status': True, 'message': 'Files generated successfully'}
+
+        try:
+            language_processing = c.execute(f'SELECT * FROM languages_dates WHERE processing').fetchone()
+            if language_processing:
+                raise Exception('Another language is already being processed, try again later.')
+            # saving processing TRUE flag
+            language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
+            if language_saved:
+                self.change_flag(c, True, language)
+                conn.commit()
+            else:
+                self.change_flag(c, True, 'default')
+                conn.commit()
+
+            saved_readmes = self.get_language_repos(language)
+            load_sections(language)
+            classify_sections(language)
+        except Exception as e:
+            logging.exception(e)
+            response = {'status': False, 'message': str(e)}
+        finally:
+            # saving processing FALSE flag
+            language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
+            if language_saved:
+                self.change_flag(c, False, language)
+                conn.commit()
+            else:
+                self.change_flag(c, False, 'default')
+                conn.commit()
+            conn.close()
+            return response
+
+
+    def change_flag(self, c, value, language):
+        return c.execute(f'UPDATE languages_dates SET processing={1 if value else 0} WHERE language = \'{language}\'')

@@ -14,7 +14,7 @@ Accept: application/json
 ###
 # get language readmes
 
-GET http://localhost:5000/css
+GET http://localhost:5000/repos/css
 Accept: application/json
 
 ###
@@ -25,6 +25,11 @@ Accept: application/json
 ###
 
 GET http://localhost:5000/classify/css
+Accept: application/json
+
+###
+
+GET http://localhost:5000/javascript
 Accept: application/json
 
 ###
