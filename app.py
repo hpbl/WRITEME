@@ -77,6 +77,13 @@ def generate(language):
     return Response(generate_response['message'], status=200 if generate_response['status'] else 400,
                     mimetype='application/json')
 
+@app.route('/files/<data_type>/<language>')
+def get_sections_object(data_type, language):
+    try:
+        provider = get_provider(DEBUG)
+        return jsonify(provider.get_json_file(language.lower(), data_type))
+    except ValueError as err:
+        return Response('Data not found', status=400, mimetype='application/json')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", debug=DEBUG)

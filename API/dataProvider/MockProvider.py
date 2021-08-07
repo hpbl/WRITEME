@@ -19,3 +19,6 @@ class MockProvider(AbstractDataProvider):
 
     def generate(self, language):
         return
+
+    def get_json_file(self, language, type='sections'):
+        return

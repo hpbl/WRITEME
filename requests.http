@@ -35,3 +35,15 @@ Accept: application/json
 
 ###
 
+GET http://localhost:5000/files/sections/Jupyter Notebook
+
+Accept: application/json
+
+###
+
+GET http://localhost:5000/files/trees/Jupyter Notebook
+
+Accept: application/json
+
+###
+

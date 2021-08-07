@@ -146,8 +146,10 @@ class Provider(AbstractDataProvider):
             classify_sections(language)
             logging.info(f'>>>Classified {language} sections')
 
-            sections = get_section_provider().fetch_classified_sections(f'containerizedModel/output/output_section_codes_{language}.csv')
-            trees = get_readme_provider().fetch_readmes_trees(f'containerizedModel/input/clf_target_readmes/{language.lower()}')
+            sections = get_section_provider().fetch_classified_sections(
+                f'containerizedModel/output/output_section_codes_{language}.csv')
+            trees = get_readme_provider().fetch_readmes_trees(
+                f'containerizedModel/input/clf_target_readmes/{language.lower()}')
 
             self.write_json(f'sections_{language}.json', jsonify(sections).get_data(as_text=True))
             self.write_json(f'trees_{language}.json', jsonify(trees).get_data(as_text=True))
@@ -169,7 +171,8 @@ class Provider(AbstractDataProvider):
             return response
 
     def change_flag(self, c, value, language):
-        return c.execute(f'UPDATE languages_dates SET processing={1 if value else 0}, last_execution_date="{None if language=="default" else datetime.datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
+        return c.execute(
+            f'UPDATE languages_dates SET processing={1 if value else 0}, last_execution_date="{"2021-01-01" if language == "default" else datetime.datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
 
     def write_json(self, filename, data):
         file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
@@ -178,3 +181,18 @@ class Provider(AbstractDataProvider):
         file = open(f'{file_path}', "w")
         file.write(data)
         file.close()
+
+    def get_json_file(self, language, data_type='sections'):
+        log_filename = 'containerizedModel/log/get_sections_trees.log'
+        logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
+        logging.getLogger().addHandler(logging.StreamHandler())
+
+        file_path = f'{os.getcwd()}/containerizedModel/output/{data_type}_{language.lower()}.json'
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as file:
+                data = file.read().replace('\n', '')
+                logging.info(data)
+                return data
+        else:
+            logging.error(f'file {file_path} not found')
+            raise ValueError('Data not found')
