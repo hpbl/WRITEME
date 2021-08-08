@@ -4,6 +4,7 @@ import math
 import logging
 import datetime
 import sqlite3
+import json
 from containerizedModel.script.classifier.classifier_classify_target import classify_sections
 from containerizedModel.script.loading.load_target_sections import load_sections
 import requests as rq
@@ -190,9 +191,9 @@ class Provider(AbstractDataProvider):
         file_path = f'{os.getcwd()}/containerizedModel/output/{data_type}_{language.lower()}.json'
         if os.path.exists(file_path):
             with open(file_path, 'r') as file:
-                data = file.read().replace('\n', '')
+                data = file.read()
                 logging.info(data)
-                return data
+                return json.loads(data)
         else:
             logging.error(f'file {file_path} not found')
             raise ValueError('Data not found')
