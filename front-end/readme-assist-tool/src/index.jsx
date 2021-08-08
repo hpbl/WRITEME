@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Switch, Route } from 'react-router-dom';
+import {
+  HashRouter, Switch, Route, BrowserRouter,
+} from 'react-router-dom';
 import ReactGA from 'react-ga';
 import './index.css';
 import Composer from './pages/Composer/Composer';
@@ -14,10 +16,12 @@ function App() {
 
   return (
     <HashRouter basename={`${process.env.PUBLIC_URL}/`} onUpdate={() => window.scrollTo(0, 0)}>
-      <Switch>
-        <Route path="/" exact component={About} />
-        <Route path="/composer/:language" component={Composer} />
-      </Switch>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={About} />
+          <Route path="/composer/:language" component={Composer} />
+        </Switch>
+      </BrowserRouter>
     </HashRouter>
   );
 }
