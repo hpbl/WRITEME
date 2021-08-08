@@ -6,17 +6,62 @@ import About from '../About/About';
 import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 import READMEContainer from './READMEContainer/READMEContainer';
 import isEqual from '../../common/Extensions';
-import { numReposForLanguage } from '../../common/ReadmeParser';
 
 class Composer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       selectedSections: [],
+      sectionsLoaded: false,
+      treesLoaded: false,
+      sections: [],
+      trees: {},
     };
 
     const { match: { params: { language } } } = props;
     ReactGA.pageview(`composer/${language}`);
+    console.log(`${process.env.REACT_APP_BACKEND_URL}files/sections/${language}`);
+  }
+
+  componentDidMount() {
+    const { match: { params: { language } } } = this.props;
+    fetch(`${process.env.REACT_APP_BACKEND_URL}files/trees/${language}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            treesLoaded: true,
+            trees: result,
+          });
+        },
+        (error) => {
+          console.error(error);
+          this.setState({
+            treesLoaded: true,
+            trees: [],
+          });
+        },
+      );
+
+    fetch(`${process.env.REACT_APP_BACKEND_URL}files/sections/${language}`)
+      .then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result);
+          this.setState({
+            sectionsLoaded: true,
+            sections: result,
+          });
+        },
+        (error) => {
+          console.error(error);
+          this.setState({
+            sectionsLoaded: true,
+            sections: [],
+          });
+        },
+      );
   }
 
   sectionIndex(section) {
@@ -40,15 +85,17 @@ class Composer extends React.Component {
   }
 
   render() {
-    const { selectedSections } = this.state;
+    const { selectedSections, trees } = this.state;
     const { match: { params: { language } } } = this.props;
-    const numRepos = numReposForLanguage(language);
+    const numRepos = Object.keys(trees).length;
 
     return (
       <div>
         <About numRepos={`${numRepos}`} />
         <div className="Composer">
           <SuggestionsContainer
+            sections={this.state.sections}
+            trees
             language={language}
             onSectionToggle={section => this.toggleSection(section)}
           />

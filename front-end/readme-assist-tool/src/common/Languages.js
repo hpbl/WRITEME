@@ -34,10 +34,12 @@ const supportedLanguages = {
 };
 
 export function getSections(language) {
+  return [];
   return supportedLanguages[language].sections;
 }
 
 export function getTrees(language) {
+  return {};
   return supportedLanguages[language].trees.default;
 }
 
@@ -649,7 +651,7 @@ export const githubLaguages = [
   'Zephir',
   'Zig',
   'ZIL',
-  'Zimpl'
+  'Zimpl',
 ];
 
 export default { supportedLanguages, getSections };

@@ -10,6 +10,9 @@ function getValueForKey(key, section) {
 
 function groupSectionsByKey(key, sections) {
   const groupedSections = {};
+  if (sections.length === 0) {
+    return groupedSections;
+  }
   sections.forEach((section) => {
     const groupKey = getValueForKey(key, section);
     const codeArray = groupedSections[groupKey];
@@ -37,6 +40,10 @@ export function groupSectionsByFirstSectionCode(sections) {
 /* Compute occurences and remove duplicates */
 export function sortByOccurence(sections) {
   const occurences = {};
+
+  if (sections.length === 0) {
+    return [];
+  }
   sections.forEach((section) => {
     const trimmedTitle = section.title.trim();
     if (trimmedTitle !== '') {
@@ -64,6 +71,10 @@ export function computeFrequencyByLevel(sections) {
   const frequencyByLevel = {
     1: {}, 2: {}, 3: {}, 4: {}, 5: {}, 6: {},
   };
+
+  if (sections.length === 0) {
+    return frequencyByLevel;
+  }
 
   sections.forEach((section) => {
     const levelSections = frequencyByLevel[section.level];

@@ -26,9 +26,7 @@ export function findSectionOccurencesInTree(section, tree, repoName) {
     .filter(searchResult => searchResult.constructor === Object);
 }
 
-export function findChildren(sectionTitle, headingLevel, language) {
-  const treeDict = getTrees(language);
-
+export function findChildren(sectionTitle, headingLevel, treeDict) {
   const section = { title: sectionTitle, heading_level: headingLevel };
   const repos = Object.keys(treeDict);
   return repos.map(repoName => findSectionOccurencesInTree(section, treeDict[repoName], repoName))

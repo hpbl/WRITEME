@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getLanguages, githubLaguages } from '../../common/Languages';
 import './About.css';
-import Select from 'react-select'
+import Select from 'react-select';
 
 const languagesOptions = githubLaguages.map(lang => ({ value: lang, label: lang }));
 
@@ -93,7 +93,14 @@ const About = ({ numRepos }) => (
       <div id="links">
         <h1>Supported languages</h1>
         <p>This tool is meant to work with every programming language that has projects on GitHub. Choose any language below and you'll be redirected to compose a new README file based on selected language. </p>
-        <p><small><b>If you can't find some language, open a new issue on our Github repository</b></small></p>
+        <p>
+          <small>
+            <b>
+              If you can't find some language, open a new issue on our
+              <a href="https://github.com/hpbl/WRITEME" target="_blank" rel="noopener noreferrer">Github repository</a>
+            </b>
+          </small>
+        </p>
         <Select
           options={languagesOptions}
           onChange={(o) => {

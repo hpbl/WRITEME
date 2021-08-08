@@ -7,8 +7,10 @@ import { sectionCodes } from '../../../common/SectionTypes';
 import { getSections } from '../../../common/Languages';
 import { groupSectionsByFirstSectionCode } from '../../../common/SectionParser';
 
-function SuggestionsContainer({ onSectionToggle, language }) {
-  const sections = getSections(language);
+function SuggestionsContainer(props) {
+  const {
+    onSectionToggle, language, sections, trees,
+  } = props;
   const groupedSections = groupSectionsByFirstSectionCode(sections);
 
   return (
@@ -22,6 +24,7 @@ function SuggestionsContainer({ onSectionToggle, language }) {
         sectionCodes.map(code => (
           <TypeSectionContainer
             language={language}
+            trees={trees}
             sectionCode={code}
             key={code}
             sections={groupedSections[code]}

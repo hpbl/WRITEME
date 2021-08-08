@@ -55,15 +55,15 @@ class TypeSectionContainer extends React.Component {
     let desiredChildren = [];
     const desiredChildrenLevel = section.headingLevel + 1;
 
-    const { language } = this.props;
+    const { language, trees } = this.props;
 
     if (isSelected) {
-      const children = findChildren(section.sectionTitle, section.headingLevel, language)
+      const children = findChildren(section.sectionTitle, section.headingLevel, trees)
         .flat(Infinity);
       const groupedChildren = computeFrequencyByLevel(children);
       desiredChildren = groupedChildren[desiredChildrenLevel - 1]; // starts on 0
     }
-
+    console.log(desiredChildren);
     return (
       <div className="section" key={`${section.sectionTitle}-${section[1]}`}>
         <h2 className={className}>
@@ -75,7 +75,7 @@ class TypeSectionContainer extends React.Component {
           && (
           <div className="children">
             {
-              desiredChildren
+              desiredChildren && desiredChildren
                 .map((child) => {
                   const childSection = {
                     sectionTitle: child[0],
@@ -97,9 +97,8 @@ class TypeSectionContainer extends React.Component {
     const { headingLevel } = this.state;
 
     const groupedSections = groupSectionsByHeadingLevel(sections);
-    const desiredLevelSections = groupedSections[headingLevel];
+    const desiredLevelSections = groupedSections[headingLevel] || [];
     const sortedOccurences = sortByOccurence(desiredLevelSections);
-
     const popularOccurences = sortedOccurences.filter(section => section[1] > 1);
 
     return (
