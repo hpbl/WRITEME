@@ -35,10 +35,18 @@ class Provider(AbstractDataProvider):
     def fetch_readme_url(self, repo_full_name) -> Optional[str]:
         base_url = 'https://api.github.com/repos'
         token = os.environ['GITHUB_TOKEN']
-        request_url = f'{base_url}/{repo_full_name}/readme?access_token={token}'
+        request_url = f'{base_url}/{repo_full_name}/readme'
+        headers = {'Authorization': f'token {token}'}
 
+        log_filename = 'containerizedModel/log/requests.log'
+        logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
+        logging.getLogger().addHandler(logging.StreamHandler())
         try:
-            response = rq.get(request_url)
+            response = rq.get(request_url, headers=headers)
+            if response.status_code == 200:
+                logging.info(response.content)
+            else:
+                logging.error(response.content)
         except rq.exceptions.RequestException as e:
             # TODO: Handle error
             print("ERROR HERE:", file=sys.stderr)
@@ -136,7 +144,7 @@ class Provider(AbstractDataProvider):
                 conn.commit()
 
             saved_readmes = self.get_language_repos(language)
-            logging.info(f'>>>Saved {language} READMEs')
+            logging.info(f'>>>Saved {saved_readmes} {language} READMEs')
             if saved_readmes > 0 and not language_saved:
                 c.execute(f'INSERT INTO languages_dates (language, processing) VALUES ("{language}", true)')
                 self.change_flag(c, False, 'default')

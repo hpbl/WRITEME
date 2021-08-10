@@ -29,7 +29,7 @@ Accept: application/json
 
 ###
 
-GET http://localhost:5000/Jupyter Notebook
+GET http://localhost:5000/Java
 
 Accept: application/json
 
