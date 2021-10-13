@@ -96,8 +96,8 @@ const About = ({ numRepos }) => (
         <p>
           <small>
             <b>
-              If you can't find some language, open a new issue on our
-              <a href="https://github.com/hpbl/WRITEME" target="_blank" rel="noopener noreferrer">Github repository</a>
+              If you can't find some language, please open a new issue on our &nbsp;
+              <a href="https://github.com/hpbl/WRITEME" target="_blank" rel="noopener noreferrer"> Github repository</a>
             </b>
           </small>
         </p>

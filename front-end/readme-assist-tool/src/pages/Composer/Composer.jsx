@@ -17,10 +17,9 @@ class Composer extends React.Component {
       sections: [],
       trees: {},
     };
-
+    this.ref = React.createRef();
     const { match: { params: { language } } } = props;
     ReactGA.pageview(`composer/${language}`);
-    console.log(`${process.env.REACT_APP_BACKEND_URL}files/sections/${language}`);
   }
 
   componentDidMount() {
@@ -29,7 +28,6 @@ class Composer extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
           this.setState({
             treesLoaded: true,
             trees: result,
@@ -41,6 +39,7 @@ class Composer extends React.Component {
             treesLoaded: true,
             trees: [],
           });
+          alert("An error occurred on loading this language suggestions. We probably don't support this language yet, try again later.");
         },
       );
 
@@ -48,7 +47,6 @@ class Composer extends React.Component {
       .then(res => res.json())
       .then(
         (result) => {
-          console.log(result);
           this.setState({
             sectionsLoaded: true,
             sections: result,
@@ -85,17 +83,17 @@ class Composer extends React.Component {
   }
 
   render() {
-    const { selectedSections, trees } = this.state;
+    const { selectedSections, trees, sections } = this.state;
     const { match: { params: { language } } } = this.props;
     const numRepos = Object.keys(trees).length;
 
     return (
-      <div>
+      <div key={this.ref}>
         <About numRepos={`${numRepos}`} />
         <div className="Composer">
           <SuggestionsContainer
-            sections={this.state.sections}
-            trees
+            sections={sections}
+            trees={trees}
             language={language}
             onSectionToggle={section => this.toggleSection(section)}
           />

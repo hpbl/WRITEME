@@ -55,7 +55,7 @@ class TypeSectionContainer extends React.Component {
     let desiredChildren = [];
     const desiredChildrenLevel = section.headingLevel + 1;
 
-    const { language, trees } = this.props;
+    const { trees } = this.props;
 
     if (isSelected) {
       const children = findChildren(section.sectionTitle, section.headingLevel, trees)
@@ -119,6 +119,7 @@ class TypeSectionContainer extends React.Component {
 TypeSectionContainer.propTypes = {
   sectionCode: PropTypes.string.isRequired,
   onSectionToggle: PropTypes.func.isRequired,
+  trees: PropTypes.func.isRequired,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,

@@ -2,7 +2,7 @@
   "name": "readme-assist-tool",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://hpbl.github.io/WRITEME/",
+  "homepage": ".",
   "dependencies": {
     "husky": "^2.4.0",
     "lint-staged": "^8.2.0",

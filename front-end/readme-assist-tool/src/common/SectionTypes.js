@@ -11,5 +11,3 @@ export const sectionTypes = {
 };
 
 export const sectionCodes = Object.keys(sectionTypes);
-
-export default { sectionTypes, sectionCodes };

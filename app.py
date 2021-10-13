@@ -72,10 +72,11 @@ def get_language_repos(language=''):
 
 @app.route('/<language>')
 def generate(language):
-    provider = get_provider(DEBUG)
-    generate_response = provider.generate(language.lower())
-    return Response(generate_response['message'], status=200 if generate_response['status'] else 400,
-                    mimetype='application/json')
+    with app.app_context():
+        provider = get_provider(DEBUG)
+        generate_response = provider.generate(language.lower())
+        return Response(generate_response['message'], status=200 if generate_response['status'] else 400,
+                        mimetype='application/json')
 
 
 @app.route('/files/<data_type>/<language>')

@@ -73,7 +73,7 @@ export function computeFrequencyByLevel(sections) {
   };
 
   if (sections.length === 0) {
-    return frequencyByLevel;
+    return [];
   }
 
   sections.forEach((section) => {
