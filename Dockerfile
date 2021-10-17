@@ -19,6 +19,9 @@ COPY init.py .
 RUN pip install -r requirements.txt
 RUN python3 init.py
 
+# Supervisor conf
+ADD .docker/app/supervisord/* /etc/supervisord/
+
 # copy code itself from context to image
 COPY . .
 

@@ -8,6 +8,8 @@ from containerizedModel.script.classifier.classifier_classify_target import clas
 from containerizedModel.script.loading.load_target_sections import load_sections
 from API.model.MyJSONEncoder import MyJSONEncoder
 from API.readmeProvider import get_readme_provider
+from rq import Queue
+from redis import Redis
 
 # retrieving model file (joblib.load) requires this to work
 import sys
@@ -16,6 +18,8 @@ sys.path.append('containerizedModel')
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
+q = Queue(connection=Redis(host='redis_service'))
+
 
 
 @app.route('/')
@@ -74,9 +78,13 @@ def get_language_repos(language=''):
 def generate(language):
     with app.app_context():
         provider = get_provider(DEBUG)
-        generate_response = provider.generate(language.lower())
-        return Response(generate_response['message'], status=200 if generate_response['status'] else 400,
-                        mimetype='application/json')
+        job = q.enqueue(provider.generate, language.lower())
+        log_filename = 'containerizedModel/log/generate.log'
+        logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
+        logging.getLogger().addHandler(logging.StreamHandler())
+        logging.info(job.result)
+        logging.info('aaaaaaaaaaaaaaaaaaaaaaa')
+        return Response('Job enqueued successfully', status=200, mimetype='application/json')
 
 
 @app.route('/files/<data_type>/<language>')

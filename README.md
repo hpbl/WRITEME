@@ -85,7 +85,7 @@ Currently the API is static, it only serves pre-fetched Swift READMEs. The follo
 - [x] Design lo-fi prototype.
 - [ ] Design UI.
 - [ ] Implement UI.
-- [ ] Consume API.
+- [x] Consume API.
 - [ ] Secure Domain.
 - [ ] Deploy.
 

@@ -11,3 +11,6 @@ lxml
 flask
 requests
 joblib
+redis
+rq
+supervisor
