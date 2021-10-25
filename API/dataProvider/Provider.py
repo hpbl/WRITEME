@@ -14,6 +14,7 @@ from API.readmeProvider import get_readme_provider
 import os
 import sys
 from typing import Optional
+sys.path.append('containerizedModel')
 
 
 class Provider(AbstractDataProvider):
@@ -122,14 +123,14 @@ class Provider(AbstractDataProvider):
         logging.getLogger().addHandler(logging.StreamHandler())
         logging.info(f'generating {language} json files')
 
-        config = configparser.ConfigParser()
-        config.read('containerizedModel/config/config.cfg')
-        db_filename = config['DEFAULT']['db_filename']
-        conn = sqlite3.connect(db_filename)
-        c = conn.cursor()
-        response = {'status': True, 'message': 'Files generated successfully'}
-
         try:
+            config = configparser.ConfigParser()
+            config.read('containerizedModel/config/config.cfg')
+            db_filename = config['DEFAULT']['db_filename']
+            conn = sqlite3.connect(db_filename)
+            c = conn.cursor()
+            response = {'status': True, 'message': 'Files generated successfully'}
+
             language_processing = c.execute(f'SELECT * FROM languages_dates WHERE processing').fetchone()
             if language_processing:
                 raise Exception('Another language is already being processed, try again later.')
