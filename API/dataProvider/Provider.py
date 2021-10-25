@@ -1,5 +1,4 @@
 import configparser
-from flask import jsonify
 import math
 import logging
 import datetime
@@ -99,7 +98,7 @@ class Provider(AbstractDataProvider):
     def get_language_repos(self, language):
         language_query = f'language:{language}'
         sort = "stars"
-        number_repos = 300
+        number_repos = 3
 
         formatted_json = self.fetch_repositories(language_query, sort, number_repos)
 
@@ -159,9 +158,10 @@ class Provider(AbstractDataProvider):
                 f'containerizedModel/output/output_section_codes_{language}.csv')
             trees = get_readme_provider().fetch_readmes_trees(
                 f'containerizedModel/input/clf_target_readmes/{language.lower()}')
+            sections_serializable = list(map(lambda s: s.to_json(), sections))
 
-            self.write_json(f'sections_{language}.json', jsonify(sections).get_data(as_text=True))
-            self.write_json(f'trees_{language}.json', jsonify(trees).get_data(as_text=True))
+            self.write_json(f'sections_{language}.json', json.dumps(sections_serializable))
+            self.write_json(f'trees_{language}.json', json.dumps(trees))
         except Exception as e:
             logging.exception(e)
             response = {'status': False, 'message': str(e)}
