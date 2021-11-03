@@ -107,15 +107,6 @@ const About = ({ numRepos }) => (
             window.location = `composer/${o.value}`;
           }}
         />
-        <ul>
-          {
-            getLanguages().map(({ urlName, presentationName }) => (
-              <li key={urlName}>
-                <Link key={urlName} to={`composer/${urlName}`}>{presentationName}</Link>
-              </li>
-            ))
-          }
-        </ul>
       </div>
     )}
   </div>
