@@ -34,12 +34,21 @@ class Composer extends React.Component {
           });
         },
         (error) => {
-          console.error(error);
+          // console.error(error);
           this.setState({
             treesLoaded: true,
-            trees: [],
+            trees: {},
           });
-          alert("An error occurred on loading this language suggestions. We probably don't support this language yet, try again later.");
+          fetch(`${process.env.REACT_APP_BACKEND_URL}${language}`)
+              .then(res => res.body )
+              .then(
+                  (result) => {
+                    alert("Data was not found. Please, try again in a few minutes while the language is been processed.");
+                  },
+                  (error) => {
+                    alert("Could not connect to WRITEME server");
+                  })
+
         },
       );
 
@@ -53,7 +62,6 @@ class Composer extends React.Component {
           });
         },
         (error) => {
-          console.error(error);
           this.setState({
             sectionsLoaded: true,
             sections: [],

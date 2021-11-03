@@ -14,6 +14,8 @@ from API.readmeProvider import get_readme_provider
 import os
 import sys
 from typing import Optional
+import time
+from datetime import datetime, timedelta
 sys.path.append('containerizedModel')
 
 
@@ -99,7 +101,7 @@ class Provider(AbstractDataProvider):
     def get_language_repos(self, language):
         language_query = f'language:{language}'
         sort = "stars"
-        number_repos = 3
+        number_repos = 100
 
         formatted_json = self.fetch_repositories(language_query, sort, number_repos)
 
@@ -134,21 +136,24 @@ class Provider(AbstractDataProvider):
             language_processing = c.execute(f'SELECT * FROM languages_dates WHERE processing').fetchone()
             if language_processing:
                 raise Exception('Another language is already being processed, try again later.')
+
+            if not self.validation_expired(c, language):
+                raise Exception('Language was recently processed.')
+
             # saving processing TRUE flag
             language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
             if language_saved:
-                self.change_flag(c, True, language)
+                self.change_processing_flag(c, True, language)
                 conn.commit()
             else:
-                self.change_flag(c, True, 'default')
+                self.change_processing_flag(c, True, 'default')
                 conn.commit()
 
             saved_readmes = self.get_language_repos(language)
             logging.info(f'>>>Saved {saved_readmes} {language} READMEs')
             if saved_readmes > 0 and not language_saved:
                 c.execute(f'INSERT INTO languages_dates (language, processing) VALUES ("{language}", true)')
-                self.change_flag(c, False, 'default')
-            conn.close()
+                self.change_processing_flag(c, False, 'default')
 
             load_sections(language)
             logging.info(f'>>>Loaded {language} sections')
@@ -161,8 +166,13 @@ class Provider(AbstractDataProvider):
                 f'containerizedModel/input/clf_target_readmes/{language.lower()}')
             sections_serializable = list(map(lambda s: s.to_json(), sections))
 
+            logging.info(f'saving {language} sections json file')
             self.write_json(f'sections_{language}.json', json.dumps(sections_serializable))
+            logging.info(f'saving {language} trees json file')
             self.write_json(f'trees_{language}.json', json.dumps(trees))
+            if self.json_output_exists(f'trees_{language}.json') and self.json_output_exists(f'sections_{language}.json'):
+                self.save_last_execution(c, language)
+            conn.close()
         except Exception as e:
             logging.exception(e)
             response = {'status': False, 'message': str(e)}
@@ -172,17 +182,26 @@ class Provider(AbstractDataProvider):
             # saving processing FALSE flag
             language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
             if language_saved:
-                self.change_flag(c, False, language)
+                self.change_processing_flag(c, False, language)
                 conn.commit()
             else:
-                self.change_flag(c, False, 'default')
+                self.change_processing_flag(c, False, 'default')
                 conn.commit()
             conn.close()
             return response
 
-    def change_flag(self, c, value, language):
+    def change_processing_flag(self, c, value, language):
         return c.execute(
-            f'UPDATE languages_dates SET processing={1 if value else 0}, last_execution_date="{"2021-01-01" if language == "default" else datetime.datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
+            f'UPDATE languages_dates SET processing={1 if value else 0} WHERE language = \'{language}\'')
+
+    def save_last_execution(self, c, language):
+        return c.execute(
+            f'UPDATE languages_dates SET last_execution_date="{datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
+
+    def validation_expired(self, c, language):
+        raw = c.execute(f'SELECT last_execution_date, days_interval FROM languages_dates WHERE language = \'{language}\'').fetchone()
+        return not raw or not raw[0] or datetime.now() > (datetime.strptime(raw[0], '%Y-%m-%d')  + timedelta(days=raw[1]))
+
 
     def write_json(self, filename, data):
         file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
@@ -191,6 +210,10 @@ class Provider(AbstractDataProvider):
         file = open(f'{file_path}', "w")
         file.write(data)
         file.close()
+        
+    def json_output_exists(self, filename):
+        file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
+        return os.path.exists(file_path)
 
     def get_json_file(self, language, data_type='sections'):
         log_filename = 'containerizedModel/log/get_sections_trees.log'

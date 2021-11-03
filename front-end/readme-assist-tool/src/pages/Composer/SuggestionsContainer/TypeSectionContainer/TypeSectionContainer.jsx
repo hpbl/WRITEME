@@ -119,7 +119,7 @@ class TypeSectionContainer extends React.Component {
 TypeSectionContainer.propTypes = {
   sectionCode: PropTypes.string.isRequired,
   onSectionToggle: PropTypes.func.isRequired,
-  trees: PropTypes.func.isRequired,
+  trees: PropTypes.object.isRequired,
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,

@@ -78,13 +78,11 @@ def get_language_repos(language=''):
 def generate(language):
     with app.app_context():
         provider = get_provider(DEBUG)
-        job = q.enqueue(provider.generate, language.lower())
-        log_filename = 'containerizedModel/log/generate.log'
-        logging.basicConfig(handlers=[logging.FileHandler(log_filename, 'w+', 'utf-8')], level=20)
-        logging.getLogger().addHandler(logging.StreamHandler())
-        logging.info(job.result)
-        logging.info('aaaaaaaaaaaaaaaaaaaaaaa')
-        return Response('Job enqueued successfully', status=200, mimetype='application/json')
+        q.enqueue(provider.generate, args=(language.lower(),), timeout=600)
+        res = Response('Job enqueued successfully', status=200)
+        res.headers['Access-Control-Allow-Origin'] = '*'
+        return res
+
 
 
 @app.route('/files/<data_type>/<language>')
@@ -95,7 +93,7 @@ def get_sections_object(data_type, language):
         response.headers['Access-Control-Allow-Origin'] = '*'
         return response
     except ValueError as err:
-        response = Response('Data not found', status=400, mimetype='application/json')
+        response = Response("{'error': 'Data not found'}", status=404, mimetype='application/json')
         response.headers['Access-Control-Allow-Origin'] = '*'
         return response
 
