@@ -18,7 +18,7 @@ sys.path.append('containerizedModel')
 
 app = Flask(__name__)
 app.json_encoder = MyJSONEncoder
-q = Queue(connection=Redis(host='redis_service'))
+q = Queue('high', connection=Redis(host='redis_service'))
 
 
 
@@ -78,7 +78,7 @@ def get_language_repos(language=''):
 def generate(language):
     with app.app_context():
         provider = get_provider(DEBUG)
-        q.enqueue(provider.generate, args=(language.lower(),), timeout=600)
+        q.enqueue(provider.generate, args=(language.lower(),), job_timeout=600)
         res = Response('Job enqueued successfully', status=200)
         res.headers['Access-Control-Allow-Origin'] = '*'
         return res
