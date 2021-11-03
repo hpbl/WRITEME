@@ -40,15 +40,15 @@ class Composer extends React.Component {
             trees: {},
           });
           fetch(`${process.env.REACT_APP_BACKEND_URL}${language}`)
-              .then(res => res.body )
-              .then(
-                  (result) => {
-                    alert("Data was not found. Please, try again in a few minutes while the language is been processed.");
-                  },
-                  (error) => {
-                    alert("Could not connect to WRITEME server");
-                  })
-
+            .then(res => res.body)
+            .then(
+              (result) => {
+                alert('Data was not found. Please, try again in a few minutes while the language is been processed.');
+              },
+              (error) => {
+                alert('Could not connect to WRITEME server');
+              },
+            );
         },
       );
 
