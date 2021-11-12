@@ -133,27 +133,17 @@ class Provider(AbstractDataProvider):
             c = conn.cursor()
             response = {'status': True, 'message': 'Files generated successfully'}
 
-            language_processing = c.execute(f'SELECT * FROM languages_dates WHERE processing').fetchone()
-            if language_processing:
-                raise Exception('Another language is already being processed, try again later.')
-
             if not self.validation_expired(c, language):
                 raise Exception('Language was recently processed.')
 
             # saving processing TRUE flag
             language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
-            if language_saved:
-                self.change_processing_flag(c, True, language)
-                conn.commit()
-            else:
-                self.change_processing_flag(c, True, 'default')
-                conn.commit()
 
             saved_readmes = self.get_language_repos(language)
             logging.info(f'>>>Saved {saved_readmes} {language} READMEs')
             if saved_readmes > 0 and not language_saved:
-                c.execute(f'INSERT INTO languages_dates (language, processing) VALUES ("{language}", true)')
-                self.change_processing_flag(c, False, 'default')
+                c.execute(f'INSERT INTO languages_dates (language) VALUES ("{language}")')
+                conn.close()
 
             load_sections(language)
             logging.info(f'>>>Loaded {language} sections')
@@ -171,28 +161,15 @@ class Provider(AbstractDataProvider):
             logging.info(f'saving {language} trees json file')
             self.write_json(f'trees_{language}.json', json.dumps(trees))
             if self.json_output_exists(f'trees_{language}.json') and self.json_output_exists(f'sections_{language}.json'):
+                conn = sqlite3.connect(db_filename)
+                c = conn.cursor()
                 self.save_last_execution(c, language)
-            conn.close()
+                conn.close()
         except Exception as e:
             logging.exception(e)
             response = {'status': False, 'message': str(e)}
         finally:
-            conn = sqlite3.connect(db_filename)
-            c = conn.cursor()
-            # saving processing FALSE flag
-            language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
-            if language_saved:
-                self.change_processing_flag(c, False, language)
-                conn.commit()
-            else:
-                self.change_processing_flag(c, False, 'default')
-                conn.commit()
-            conn.close()
             return response
-
-    def change_processing_flag(self, c, value, language):
-        return c.execute(
-            f'UPDATE languages_dates SET processing={1 if value else 0} WHERE language = \'{language}\'')
 
     def save_last_execution(self, c, language):
         return c.execute(
