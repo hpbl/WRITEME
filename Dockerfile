@@ -25,6 +25,12 @@ ADD .docker/app/supervisord/* /etc/supervisord/
 # copy code itself from context to image
 COPY . .
 
-# start the flask webserver
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+# init supervisor
+RUN sed -i -e 's/\r$//' /app/.docker/app/init.sh
+RUN ls -la /app/.docker/app/init.sh
+RUN chmod +x /app/.docker/app/init.sh
+RUN ls -la /app/.docker/app/init.sh
+
+EXPOSE 5000
+
+ENTRYPOINT ["sh", "/app/.docker/app/init.sh"]
