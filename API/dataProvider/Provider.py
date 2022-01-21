@@ -14,6 +14,8 @@ from API.readmeProvider import get_readme_provider
 import os
 import sys
 from typing import Optional
+import glob
+import shutil
 import time
 from datetime import datetime, timedelta
 sys.path.append('containerizedModel')
@@ -142,7 +144,7 @@ class Provider(AbstractDataProvider):
             saved_readmes = self.get_language_repos(language)
             logging.info(f'>>>Saved {saved_readmes} {language} READMEs')
             if saved_readmes > 0 and not language_saved:
-                c.execute(f'INSERT INTO languages_dates (language) VALUES ("{language}")')
+                c.execute(f'-- INSERT INTO languages_dates (language) VALUES ("{language}")')
                 conn.close()
 
             load_sections(language)
@@ -160,6 +162,18 @@ class Provider(AbstractDataProvider):
             self.write_json(f'sections_{language}.json', json.dumps(sections_serializable))
             logging.info(f'saving {language} trees json file')
             self.write_json(f'trees_{language}.json', json.dumps(trees))
+
+            # cleaning files
+            shutil.rmtree(f'containerizedModel/input/clf_target_readmes/{language.lower()}')
+            logging.info(f'removed {language} folder')
+
+            dev_and_eval_readmes_readmes = glob.glob('containerizedModel/input/dev_and_eval_readmes/*.md')
+            for f in dev_and_eval_readmes_readmes:
+                try:
+                    os.remove(f)
+                except OSError as e:
+                    print("Error: %s : %s" % (f, e.strerror))
+
             if self.json_output_exists(f'trees_{language}.json') and self.json_output_exists(f'sections_{language}.json'):
                 conn = sqlite3.connect(db_filename)
                 c = conn.cursor()
