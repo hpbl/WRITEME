@@ -103,7 +103,7 @@ class Provider(AbstractDataProvider):
     def get_language_repos(self, language):
         language_query = f'language:{language}'
         sort = "stars"
-        number_repos = 300
+        number_repos = 500
 
         formatted_json = self.fetch_repositories(language_query, sort, number_repos)
 
