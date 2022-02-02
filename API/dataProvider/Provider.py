@@ -47,10 +47,6 @@ class Provider(AbstractDataProvider):
         logging.getLogger().addHandler(logging.StreamHandler())
         try:
             response = rq.get(request_url, headers=headers)
-            if response.status_code == 200:
-                logging.info(response.content)
-            else:
-                logging.error(response.content)
         except rq.exceptions.RequestException as e:
             # TODO: Handle error
             print("ERROR HERE:", file=sys.stderr)
