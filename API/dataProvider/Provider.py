@@ -130,18 +130,16 @@ class Provider(AbstractDataProvider):
             conn = sqlite3.connect(db_filename)
             c = conn.cursor()
             response = {'status': True, 'message': 'Files generated successfully'}
-
             if not self.validation_expired(c, language):
                 raise Exception('Language was recently processed.')
 
-            # saving processing TRUE flag
             language_saved = c.execute(f'SELECT * FROM languages_dates WHERE language = "{language}"').fetchone()
 
             saved_readmes = self.get_language_repos(language)
             logging.info(f'>>>Saved {saved_readmes} {language} READMEs')
             if saved_readmes > 0 and not language_saved:
                 c.execute(f'-- INSERT INTO languages_dates (language) VALUES ("{language}")')
-                conn.close()
+                conn.commit()
 
             load_sections(language)
             logging.info(f'>>>Loaded {language} sections')
@@ -173,7 +171,7 @@ class Provider(AbstractDataProvider):
             if self.json_output_exists(f'trees_{language}.json') and self.json_output_exists(f'sections_{language}.json'):
                 conn = sqlite3.connect(db_filename)
                 c = conn.cursor()
-                self.save_last_execution(c, language)
+                self.save_last_execution(c, conn, language)
                 conn.close()
         except Exception as e:
             logging.exception(e)
@@ -181,9 +179,9 @@ class Provider(AbstractDataProvider):
         finally:
             return response
 
-    def save_last_execution(self, c, language):
-        return c.execute(
-            f'UPDATE languages_dates SET last_execution_date="{datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
+    def save_last_execution(self, c, conn, language):
+        c.execute(f'UPDATE languages_dates SET last_execution_date="{datetime.now().strftime("%Y-%m-%d")}" WHERE language = \'{language}\'')
+        conn.commit()
 
     def validation_expired(self, c, language):
         raw = c.execute(f'SELECT last_execution_date, days_interval FROM languages_dates WHERE language = \'{language}\'').fetchone()
@@ -193,8 +191,8 @@ class Provider(AbstractDataProvider):
     def write_json(self, filename, data):
         file_path = f'{os.getcwd()}/containerizedModel/output/{filename}'
         if os.path.exists(file_path):
-            os.remove(filename)
-        file = open(f'{file_path}', "w")
+            os.remove(file_path)
+        file = open(f'{file_path}', "w+")
         file.write(data)
         file.close()
         
