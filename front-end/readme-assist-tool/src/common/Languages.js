@@ -41,6 +41,10 @@ export function getTrees(language) {
   return supportedLanguages[language].trees.default;
 }
 
+export function getPresentationName(language) {
+  return supportedLanguages[language].presentationName;
+}
+
 export function getLanguages() {
   return Object.keys(supportedLanguages).map(key => ({
     presentationName: supportedLanguages[key].presentationName,

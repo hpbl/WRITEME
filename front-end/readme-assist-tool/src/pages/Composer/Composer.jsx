@@ -7,6 +7,7 @@ import SuggestionsContainer from './SuggestionsContainer/SuggestionsContainer';
 import READMEContainer from './READMEContainer/READMEContainer';
 import isEqual from '../../common/Extensions';
 import { numReposForLanguage } from '../../common/ReadmeParser';
+import { getPresentationName } from '../../common/Languages';
 
 class Composer extends React.Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class Composer extends React.Component {
 
     return (
       <div>
-        <About numRepos={`${numRepos}`} />
+        <About numRepos={`${numRepos}`} language={getPresentationName(language)} />
         <div className="Composer">
           <SuggestionsContainer
             language={language}
